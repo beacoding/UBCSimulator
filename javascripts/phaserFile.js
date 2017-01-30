@@ -101,8 +101,6 @@ function create() {
   currentCharacter = game.add.sprite(game.world.centerX, game.world.centerY - 200, 'tanya');
   currentCharacter.anchor.setTo(0.5);
   currentCharacter.scale.setTo(0.5)
-
-
 }
 
 function addText() {
@@ -113,11 +111,7 @@ function addText() {
 
   //initialize question text
   initializeText = game.add.text(game.world.centerX,game.world.centerY - 400, "Start game", styles);
-  initializeText.inputEnabled = true;
-  initializeText.events.onInputDown.add(listener, this);
-  initializeText.anchor.setTo(0.5);
   questionText = game.add.text(game.world.centerX,game.world.centerY - 400, "", styles);
-  questionText.anchor.setTo(0.5);
 
 
 
@@ -127,17 +121,26 @@ function addText() {
 
   finishedText = createText("", game.world.centerX, game.world.centerY);
   restartText = createText("", game.world.centerX, game.world.centerY + 50);
-  finishedText.anchor.setTo(0.5);
 
+
+
+  //set handlers
   choiceOneText.inputEnabled = true;
-  choiceOneText.events.onInputDown.add(submitText, this);
-  choiceOneText.anchor.setTo(0.5);
   choiceTwoText.inputEnabled = true;
-  choiceTwoText.events.onInputDown.add(submitText, this);
-  choiceTwoText.anchor.setTo(0.5);
   restartText.inputEnabled = true;
+  initializeText.inputEnabled = true;
+  initializeText.events.onInputDown.add(listener, this);
+  choiceOneText.events.onInputDown.add(submitText, this);
+  choiceTwoText.events.onInputDown.add(submitText, this);
   restartText.events.onInputDown.add(restart, this);
+
+  //set anchors
   restartText.anchor.setTo(0.5);
+  choiceTwoText.anchor.setTo(0.5);
+  choiceOneText.anchor.setTo(0.5);
+  finishedText.anchor.setTo(0.5);
+  questionText.anchor.setTo(0.5);
+  initializeText.anchor.setTo(0.5);
 }
 
 function createText(text, xshift, yshift) {
