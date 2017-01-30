@@ -239,8 +239,8 @@
 
             gpa += decisionSet[index].val[0];
             happiness += decisionSet[index].val[1];
-            gpaText = gpaText.setText(gpa);
-            happinessText = happinessText.setText(happiness);
+            gpaText = gpaText.setText('GPA: ' + gpa);
+            happinessText = happinessText.setText('Happiness: ' + happiness);
 
             reason = decisionSet[index].consequence
 
