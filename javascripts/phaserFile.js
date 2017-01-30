@@ -100,7 +100,7 @@ function create() {
   //initialize current character
   currentCharacter = game.add.sprite(game.world.centerX, game.world.centerY - 200, 'tanya');
   currentCharacter.anchor.setTo(0.5);
-  currentCharacter.scale.setTo(0.5)
+  currentCharacter.scale.setTo(0.4)
 }
 
 function addText() {
@@ -148,7 +148,6 @@ function createText(text, xshift, yshift) {
 }
 
 function update() {
-
 }
 
 function restart() {
@@ -169,7 +168,9 @@ function submitText(e) {
   gpaText = gpaText.setText('GPA: ' + gpa);
   happinessText = happinessText.setText('Happiness: ' + happiness);
 
-  reason = decisionSet[index].consequence
+  if (decisionSet[index].consequence) {
+    reason = decisionSet[index].consequence;
+  }
 
   if (gpa < 0 || happiness < 0) {
     choiceOneText.visible = false;

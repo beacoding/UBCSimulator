@@ -4,10 +4,10 @@ var questions = {
       img: 'tanya',
       choices: [{
         reply: 'Awesome',
-        val: [25, 20],
+        val: [250, 50],
       }, {
         reply: 'Sweet',
-        val: [25, 20]
+        val: [250, 50]
       }]
     },
     1: {
@@ -49,12 +49,12 @@ var questions = {
       choices:
         [{
           reply: 'Eh I guess',
-          val: [-10, -10],
+          val: [-10, -5],
           consequence: 'How dare you lie. You are sentenced to bad grades for the rest of the year.'
         },
         {
           reply: 'Damn Right',
-          val: [-10, -10],
+          val: [-10, -5],
           consequence: 'How dare you lie. You are sentenced to bad grades for the rest of the year.'
         }
         ]
@@ -65,12 +65,12 @@ var questions = {
         choices:
           [{
             reply: "It wasn't me",
-            val: [-50, -10],
+            val: [-50, -5],
             consequence: 'Gregor calls you out in class and stares you down that you never want to go to school again'
           },
           {
             reply: 'Slide down your desk',
-            val: [-50, -10],
+            val: [-50, -5],
             consequence: 'Gregor still caught you'
           }
           ]
