@@ -1,6 +1,21 @@
-var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'gameArea', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'gameArea', { preload: preload, create: create, update: update });
 
+// Phaser.ScaleManager.EXACT_FIT = 1;
 Phaser.ScaleManager.EXACT_FIT = 1;
+
+// //this.scale.pageAlignHorizontally = true;
+// this.scale.pageAlignVertically = true;
+// this.scale.setScreenSize( true );
+
+
+WebFontConfig = {
+    active: function() { game.time.events.add(Phaser.Timer.QUARTER, addText, this); },
+
+    google: {
+      families: ['VT323']
+    }
+
+};
 
 function preload() {
   game.load.image('sky', 'assets/title-screen-background.png');
@@ -10,7 +25,12 @@ function preload() {
   game.load.image('designer-02', 'assets/designer-02.png');
   game.load.image('backend-dev-01', 'assets/backend-dev-01.png');
   game.load.image('rapper-02', 'assets/rapper-02.png');
+  game.load.image('defeat-default', 'assets/defeat-default.png');
+
+  game.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 }
+
+
 
 var choiceOneText;
 var choiceTwoText;
@@ -22,6 +42,7 @@ var gpaText;
 var finishedText;
 var monthText;
 var restartText;
+var initializeText;
 
 var gpa;
 var happiness;
@@ -52,11 +73,18 @@ var months = {
   9: 'October'
 }
 
+var styles = {
+  fontSize: '32px', 
+  fill: "#000",
+  font: 'VT323'
+}
+
 function create() {
   //initialize sky
   game.stage.backgroundColor = "#60D6FF";
   sky = game.add.sprite(0, game.world.height - 700, 'sky');
   sky.width = game.width;
+  container = Phaser.Rectangle(game.world.centerX, game.world.centerY, 100, 300);
 
   gpa = 0;
   happiness = 50;
@@ -70,35 +98,54 @@ function create() {
 
 
   //initialize current character
-  currentCharacter = game.add.sprite(game.world.centerX, game.world.centerY - 100, 'tanya');
+  currentCharacter = game.add.sprite(game.world.centerX, game.world.centerY - 200, 'tanya');
   currentCharacter.anchor.setTo(0.5);
   currentCharacter.scale.setTo(0.5)
 
+
+}
+
+function addText() {
   //initialize gpaScore and happiness score
-  gpaText = game.add.text(16, 16, 'GPA: 0', { fontSize: '32px', fill: '#000' });
-  happinessText = game.add.text(350, 16, 'Happiness: 0', { fontSize: '32px', fill: '#000' });
-  monthText = game.add.text(600, 16, 'Month: ' + months[currentMonthIndex], {fontSize: '32px', fill: '#000'});
+  gpaText = createText('GPA: 0', 16,16);
+  happinessText = createText('Happiness: 0', 350, 16);
+  monthText = createText('Month: ' + months[currentMonthIndex], 600, 16);
 
   //initialize question text
-  questionText = game.add.text(game.world.centerX,game.world.centerY - 400, "Start game", {fontSize: '32px', fill: "#000"});
-  questionText.inputEnabled = true;
-  questionText.events.onInputDown.add(listener, this);
+  initializeText = game.add.text(game.world.centerX,game.world.centerY - 400, "Start game", styles);
+  initializeText.inputEnabled = true;
+  initializeText.events.onInputDown.add(listener, this);
+  initializeText.anchor.setTo(0.5);
+  questionText = game.add.text(game.world.centerX,game.world.centerY - 400, "", styles);
+  questionText.anchor.setTo(0.5);
+
+
 
   //initialize choices text
-  choiceOneText = game.add.text(game.world.centerX,game.world.centerY + 75, "", {fontSize: '32px', fill: "#000"});
-  choiceTwoText = game.add.text(game.world.centerX,game.world.centerY + 125, "", {fontSize: '32px', fill: "#000"});
+  choiceOneText = createText("", game.world.centerX, game.world.centerY);
+  choiceTwoText = createText("", game.world.centerX, game.world.centerY + 50);
 
-  finishedText = game.add.text(game.world.centerX,game.world.centerY + 125, "", {fontSize: '32px', fill: "#000"});
-  restartText = game.add.text(game.world.centerX,game.world.centerY + 225, "", {fontSize: '32px', fill: "#000"});
+  finishedText = createText("", game.world.centerX, game.world.centerY);
+  restartText = createText("", game.world.centerX, game.world.centerY + 50);
+  finishedText.anchor.setTo(0.5);
+
+  choiceOneText.inputEnabled = true;
+  choiceOneText.events.onInputDown.add(submitText, this);
+  choiceOneText.anchor.setTo(0.5);
+  choiceTwoText.inputEnabled = true;
+  choiceTwoText.events.onInputDown.add(submitText, this);
+  choiceTwoText.anchor.setTo(0.5);
+  restartText.inputEnabled = true;
+  restartText.events.onInputDown.add(restart, this);
+  restartText.anchor.setTo(0.5);
+}
+
+function createText(text, xshift, yshift) {
+  return game.add.text(xshift, yshift, text, styles);
 }
 
 function update() {
-  choiceOneText.inputEnabled = true;
-  choiceOneText.events.onInputDown.add(submitText, this);
-  choiceTwoText.inputEnabled = true;
-  choiceTwoText.events.onInputDown.add(submitText, this);
-  restartText.inputEnabled = true;
-  restartText.events.onInputDown.add(restart, this);
+
 }
 
 function restart() {
@@ -125,7 +172,10 @@ function submitText(e) {
     choiceOneText.visible = false;
     choiceTwoText.visible = false;
     questionText.visible = false;
+    currentCharacter.loadTexture('defeat-default');
     finishedText.setText(reason);
+    restartText.setText('Restart');
+    return;
   }
 
   if (decisionSet[index].prompt === undefined) {
@@ -146,6 +196,7 @@ function listener () {
   if (!initialized) {
     index = 0;
     initialized = true;
+    initializeText.visible = false;
   } else {
     index =  Math.floor(Math.random() * decisionSet.length);               
   }
@@ -154,7 +205,7 @@ function listener () {
     choiceOneText.visible = false;
     choiceTwoText.visible = false;
     questionText.visible = false;
-    finishedText.setText('Game Finished');
+    finishedText.setText('Game finished');
     restartText.setText('Restart');
     return;
   } else {
