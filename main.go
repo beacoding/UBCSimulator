@@ -14,6 +14,7 @@ func main() {
 
 	// this gets the libraries for your game
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets"))))
+	http.Handle("/javascripts/", http.StripPrefix("/javascripts/", http.FileServer(http.Dir("./javascripts"))))
 
 	// listen and serve
 	log.Fatal(http.ListenAndServe(":8080", nil))
