@@ -19,7 +19,7 @@ var choice1;
 var choice2;
 var happinessText;
 var gpaText;
-var loseText;
+var finishedText;
 var monthText;
 
 var gpa = 0;
@@ -77,7 +77,7 @@ function create() {
   choiceOneText = game.add.text(game.world.centerX,game.world.centerY + 75, "", {fontSize: '32px', fill: "#000"});
   choiceTwoText = game.add.text(game.world.centerX,game.world.centerY + 125, "", {fontSize: '32px', fill: "#000"});
 
-  loseText = game.add.text(game.world.centerX,game.world.centerY + 125, "", {fontSize: '32px', fill: "#000"});
+  finishedText = game.add.text(game.world.centerX,game.world.centerY + 125, "", {fontSize: '32px', fill: "#000"});
 }
 
 function update() {
@@ -107,7 +107,7 @@ function submitText(e) {
     choiceOneText.visible = false;
     choiceTwoText.visible = false;
     questionText.visible = false;
-    loseText.setText(reason);
+    finishedText.setText(reason);
   }
 
   if (decisionSet[index].prompt === undefined) {
@@ -117,6 +117,7 @@ function submitText(e) {
   questionsSoFar++;
   if (questionsSoFar > questionsPerMonth) {
     currentMonthIndex++;
+    monthText.setText(months[currentMonthIndex]);
     questionsSoFar = 0;
   }
 
@@ -129,6 +130,14 @@ function listener () {
     initialized = true;
   } else {
     index =  Math.floor(Math.random() * decisionSet.length);               
+  }
+
+  if (!decisionSet.length) {
+    choiceOneText.visible = false;
+    choiceTwoText.visible = false;
+    questionText.visible = false;
+    finishedText.setText('Game Finished');
+    return;
   }
 
   obj = decisionSet[index];
