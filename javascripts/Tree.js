@@ -31,3 +31,5 @@ var buildTree = function(json) {
   return res;
 }
 
+module.exports = buildTree;
+

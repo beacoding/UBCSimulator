@@ -3,7 +3,6 @@ canvas { margin: 0 auto; }
 html, body {
     margin: 0 auto;
     padding: 0;
-    background: black;
 }
 
 #gameArea {
