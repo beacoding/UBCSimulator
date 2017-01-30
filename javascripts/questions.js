@@ -1,6 +1,7 @@
 var questions = {
     0: {
       prompt: 'You just started the school year with a perfect 4.0 GPA',
+      img: 'tanya',
       choices: [{
         reply: 'Awesome',
         val: [250, 20],
@@ -11,6 +12,7 @@ var questions = {
     },
     1: {
       prompt: 'Should you get health insurance?',
+      img: 'roy-sales',
       choices: [{
         reply: 'Yes',
         val: [-100, 10],
@@ -23,11 +25,13 @@ var questions = {
     },
     3: {
       prompt: 'You cannot get into a course. Should you use AnEyeOut?',
+      img: 'designer-01',
       choices:
         [{
           reply: 'Yes',
           val: [300, 30],
           prompt: 'AnEyeout got into your Course!',
+          img: 'designer-01',
           choices: [{
             reply: 'Awesome',
             val: [500, 20]
@@ -41,6 +45,7 @@ var questions = {
     },
     4: {
       prompt: 'Do you think Chris is buff?',
+      img: 'rapper-02',
       choices:
         [{
           reply: 'Eh I guess',
@@ -56,6 +61,7 @@ var questions = {
     },
     5: {
         prompt: 'Gregor caught you talking in class.',
+        img: 'designer-02',
         choices:
           [{
             reply: "It wasn't me",
@@ -71,12 +77,14 @@ var questions = {
     },
     6: {
       prompt: 'Gateman asks you to buy his textbook',
+      img: 'roy-sales',
       choices:
         [{
           reply: 'Cave in',
           val: [-80, 10],
           consequence: 'You ran out of money.',
           prompt: "You found a golden ticket in Gateman's textbook!",
+          img: 'roy-sales',
           choices: [{
             reply: 'Awesome',
             val: [500, 20]

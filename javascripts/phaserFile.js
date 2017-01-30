@@ -4,11 +4,12 @@ Phaser.ScaleManager.EXACT_FIT = 1;
 
 function preload() {
   game.load.image('sky', 'assets/title-screen-background.png');
-  game.load.image('ground', 'assets/platform.png');
-  game.load.image('star', 'assets/star.png');
-  game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
   game.load.image('tanya', 'assets/tanya-frontend.png');
-
+  game.load.image('roy-sales', 'assets/roy-sales.png');
+  game.load.image('designer-01', 'assets/designer-01.png');
+  game.load.image('designer-02', 'assets/designer-02.png');
+  game.load.image('backend-dev-01', 'assets/backend-dev-01.png');
+  game.load.image('rapper-02', 'assets/rapper-02.png');
 }
 
 var choiceOneText;
@@ -135,6 +136,9 @@ function listener () {
   reply = obj.reply;
   choice1 = obj.left ? obj.left.reply : null;
   choice2 = obj.right ? obj.right.reply : null;
+
+  currentCharacter.loadTexture(obj.img);
+
 
   questionText = questionText.setText(question);
   choiceOneText = choiceOneText.setText(choice1);
