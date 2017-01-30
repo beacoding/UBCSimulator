@@ -21,15 +21,16 @@ var happinessText;
 var gpaText;
 var finishedText;
 var monthText;
+var restartText;
 
-var gpa = 0;
-var happiness = 50;
+var gpa;
+var happiness;
 
-var initialized = false;
-var decisionSet = buildTree(questions);
-var questionsPerMonth = Math.floor(Object.keys(decisionSet).length / 9);
-var questionsSoFar = 0;
-var currentMonthIndex = 0;
+var initialized;
+var decisionSet;
+var questionsPerMonth;
+var questionsSoFar;
+var currentMonthIndex;
 
 var currentCharacter;
 var question;
@@ -55,7 +56,17 @@ function create() {
   //initialize sky
   game.stage.backgroundColor = "#60D6FF";
   sky = game.add.sprite(0, game.world.height - 700, 'sky');
-  sky.width = game.width
+  sky.width = game.width;
+
+  gpa = 0;
+  happiness = 50;
+
+  initialized = false;
+  questionsSoFar = 0;
+  currentMonthIndex = 0;
+
+  decisionSet = buildTree(questions);
+  questionsPerMonth = Math.floor(Object.keys(decisionSet).length / 9);
 
 
   //initialize current character
@@ -78,13 +89,20 @@ function create() {
   choiceTwoText = game.add.text(game.world.centerX,game.world.centerY + 125, "", {fontSize: '32px', fill: "#000"});
 
   finishedText = game.add.text(game.world.centerX,game.world.centerY + 125, "", {fontSize: '32px', fill: "#000"});
+  restartText = game.add.text(game.world.centerX,game.world.centerY + 225, "", {fontSize: '32px', fill: "#000"});
 }
 
 function update() {
   choiceOneText.inputEnabled = true;
   choiceOneText.events.onInputDown.add(submitText, this);
   choiceTwoText.inputEnabled = true;
-  choiceTwoText.events.onInputDown.add(submitText, this); 
+  choiceTwoText.events.onInputDown.add(submitText, this);
+  restartText.inputEnabled = true;
+  restartText.events.onInputDown.add(restart, this);
+}
+
+function restart() {
+  game.state.restart();
 }
 
 function submitText(e) {
@@ -137,19 +155,21 @@ function listener () {
     choiceTwoText.visible = false;
     questionText.visible = false;
     finishedText.setText('Game Finished');
+    restartText.setText('Restart');
     return;
+  } else {
+
+    obj = decisionSet[index];
+    question = obj.prompt;
+    reply = obj.reply;
+    choice1 = obj.left ? obj.left.reply : null;
+    choice2 = obj.right ? obj.right.reply : null;
+
+    currentCharacter.loadTexture(obj.img);
+
+
+    questionText = questionText.setText(question);
+    choiceOneText = choiceOneText.setText(choice1);
+    choiceTwoText = choiceTwoText.setText(choice2);
   }
-
-  obj = decisionSet[index];
-  question = obj.prompt;
-  reply = obj.reply;
-  choice1 = obj.left ? obj.left.reply : null;
-  choice2 = obj.right ? obj.right.reply : null;
-
-  currentCharacter.loadTexture(obj.img);
-
-
-  questionText = questionText.setText(question);
-  choiceOneText = choiceOneText.setText(choice1);
-  choiceTwoText = choiceTwoText.setText(choice2);
 }
