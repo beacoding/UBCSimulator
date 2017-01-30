@@ -1,0 +1,292 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>hello phaser!</title>
+        <script src="//cdn.jsdelivr.net/phaser/2.5.0/phaser.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    </head>
+    <body>
+
+    <script type="text/javascript">
+
+
+    window.onload = function() {
+        var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'gameArea', { preload: preload, create: create, update: update });
+
+        Phaser.ScaleManager.EXACT_FIT = 1;
+
+        function preload() {
+            game.load.image('sky', 'assets/title-screen-background.png');
+            game.load.image('ground', 'assets/platform.png');
+            game.load.image('star', 'assets/star.png');
+            game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+            game.load.image('tanya', 'assets/tanya-frontend.png');
+
+        }
+
+        var player;
+        var question;
+        var text1;
+        var text2;
+        var choice1;
+        var choice2;
+        var textQuestion;
+        var loseText;
+        var fulfilled = false;
+        var index;
+
+        var Node = function(prompt, reply, val, consequence) {
+          this.prompt = prompt;
+          this.reply = reply;
+          this.val = val;
+          this.consequence = consequence;
+          this.left = null;
+          this.right = null;
+        }
+
+        function buildTree(json) {
+          var res = [];
+          var recurseThrough = function(node) {
+            if (!node) {
+              return;
+            }
+            var newNode = new Node(node.prompt, node.reply, node.val, node.consequence);
+            if (!node.choices) {
+              return newNode;
+            }
+
+
+            newNode.left = !!node ? recurseThrough(node.choices[0]) : null;
+            newNode.right = !!node ? recurseThrough(node.choices[1]) : null;
+            return newNode;
+          }
+
+          for (var key in json) {
+            res.push(recurseThrough(json[key]));
+          }
+          return res;
+        }
+
+        var questions = {
+            0: {
+              prompt: 'You just started the school year with a perfect 4.0 GPA',
+              choices: [{
+                reply: 'Awesome',
+                val: [250, 0.2],
+              }, {
+                reply: 'Sweet',
+                val: [250, 0.2]
+              }]
+            },
+            1: {
+              prompt: 'Should you get health insurance?',
+              choices: [{
+                reply: 'Yes',
+                val: [-100, 0.1],
+                consequence: 'You ran out of money cause insurance cost too much'
+              }, {
+                reply: 'No',
+                val: [0, -0.5],
+                consequence: 'You missed 3 days of school due to pneumonia.'
+              }]
+            },
+            3: {
+              prompt: 'You cannot get into a course. Should you use AnEyeOut?',
+              choices:
+                [{
+                  reply: 'Yes',
+                  val: [300, 0.3],
+                  prompt: 'AnEyeout got into your Course!',
+                  choices: [{
+                    reply: 'Awesome',
+                    val: [500, 0.2]
+                  }]
+                },
+                {
+                  reply: 'No',
+                  val: [10, -0.4],
+                  consequence: "Woops. You couldn't get into your course. So you now have to drop out of school"
+                }]
+            },
+            4: {
+              prompt: 'Do you think Chris is buff?',
+              choices:
+                [{
+                  reply: 'Eh I guess',
+                  val: [-10, -0.1],
+                  consequence: 'How dare you lie. You are sentenced to bad grades for the rest of the year.'
+                },
+                {
+                  reply: 'Damn Right',
+                  val: [-10, -0.1],
+                  consequence: 'How dare you lie. You are sentenced to bad grades for the rest of the year.'
+                }
+                ]
+            },
+            5: {
+                prompt: 'Gregor caught you talking in class.',
+                choices:
+                  [{
+                    reply: "It wasn't me",
+                    val: [-50, -0.1],
+                    consequence: 'Gregor calls you out in class and stares you down that you never want to go to school again'
+                  },
+                  {
+                    reply: 'Slide down your desk',
+                    val: [-50, -0.1],
+                    consequence: 'Gregor still caught you'
+                  }
+                  ]
+            },
+            6: {
+              prompt: 'Gateman asks you to buy his textbook',
+              choices:
+                [{
+                  reply: 'Cave in',
+                  val: [-80, 0.2],
+                  consequence: 'You ran out of money.',
+                  prompt: "You found a golden ticket in Gateman's textbook!",
+                  choices: [{
+                    reply: 'Awesome',
+                    val: [500, 0.2]
+                  },{
+                    reply: 'Quit School',
+                    val: [-1000, -1000],
+                    consequence: 'You dropped out of school.'
+                  }]
+                },
+                {
+                  reply: 'Torrent it',
+                  val: [0, 0]
+                }]
+            }
+        }
+
+        var stars;
+        var gpa = 0;
+        var gpaText;
+        var gpa = 0;
+        var happiness = 0.5;
+        var happinessText;
+        var target;
+        var decisionSet = buildTree(questions);
+        var initialized = false;
+        var questionsPerMonth = Math.floor(Object.keys(decisionSet).length / 9);
+        var questionsSoFar = 0;
+        var currentMonthIndex = 0;
+        var obj;
+        var question;
+        var reply;
+        var months = {
+          0: 'January',
+          1: 'February',
+          2: 'March',
+          3: 'April',
+          4: 'May',
+          5: 'June',
+          6: 'July',
+          7: 'August',
+          8: 'September',
+          9: 'October'
+        }
+
+        function create() {
+            game.stage.backgroundColor = "#60D6FF";
+
+            //  We're going to be using physics, so enable the Arcade Physics system
+            game.physics.startSystem(Phaser.Physics.ARCADE);
+
+            //  A simple background for our game
+            sky = game.add.sprite(0, game.world.height - 700, 'sky');
+            sky.width = game.width
+
+
+            // The player and its settings
+            player = game.add.sprite(game.world.centerX, game.world.centerY - 100, 'tanya');
+            player.anchor.setTo(0.5);
+            player.scale.setTo(0.5)
+
+            textQuestion = game.add.text(game.world.centerX,game.world.centerY - 400, "Start game", {fontSize: '32px', fill: "#000"});
+            textQuestion.inputEnabled = true;
+            textQuestion.events.onInputDown.add(listener, this);
+            gpaText = game.add.text(16, 16, 'GPA: 0', { fontSize: '32px', fill: '#000' });
+            happinessText = game.add.text(150, 16, 'Happiness: 0', { fontSize: '32px', fill: '#000' });
+
+            text1 = game.add.text(game.world.centerX,game.world.centerY + 75, "", {fontSize: '32px', fill: "#000"});
+            text2 = game.add.text(game.world.centerX,game.world.centerY + 125, "", {fontSize: '32px', fill: "#000"});
+            loseText = game.add.text(game.world.centerX,game.world.centerY + 125, "", {fontSize: '32px', fill: "#000"});
+
+
+        }
+
+        function update() {
+            text1.inputEnabled = true;
+            text1.events.onInputDown.add(submitText, this);
+            text2.inputEnabled = true;
+            text2.events.onInputDown.add(submitText, this); 
+        }
+
+        function submitText(e) {
+            var response = e._text;
+
+            if (response === choice1) {
+              decisionSet[index] = obj.left;
+            } else if (response === choice2) {
+              decisionSet[index] = obj.right;
+            }
+
+            gpa += decisionSet[index].val[0];
+            happiness += decisionSet[index].val[1];
+            gpaText = gpaText.setText(gpa);
+            happinessText = happinessText.setText(happiness);
+
+            reason = decisionSet[index].consequence
+
+              if (gpa < 0 || happiness < 0) {
+                text1.visible = false;
+                text2.visible = false;
+                textQuestion.visible = false;
+                loseText.setText(reason);
+              }
+
+            if (decisionSet[index].prompt === undefined) {
+              decisionSet.splice(index, 1);
+            }
+            
+            questionsSoFar++;
+            if (questionsSoFar > questionsPerMonth) {
+              currentMonthIndex++;
+              questionsSoFar = 0;
+            }
+
+            listener();
+        }
+
+        function listener () {
+            if (!fulfilled) {
+                index = 0;
+                fulfilled = true;
+            } else {
+                index =  Math.floor(Math.random() * decisionSet.length);               
+            }
+
+            obj = decisionSet[index];
+            question = obj.prompt;
+            reply = obj.reply;
+            choice1 = obj.left ? obj.left.reply : null;
+            choice2 = obj.right ? obj.right.reply : null;
+
+            //  The score
+            textQuestion = textQuestion.setText(question);
+            text1 = text1.setText(choice1);
+            text2 = text2.setText(choice2);
+        }
+
+    };
+
+    </script>
+
+    </body>
+</html>
