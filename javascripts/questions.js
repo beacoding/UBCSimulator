@@ -1,13 +1,13 @@
 module.exports = {
     0: {
-      prompt: 'You just started the school year with a perfect 2.50 GPA',
+      prompt: 'You just started the school year with a 2.50 GPA',
       img: 'tanya',
       choices: [{
         reply: 'Awesome',
-        val: [250, 50],
+        val: [0, 0],
       }, {
         reply: 'Sweet',
-        val: [250, 50]
+        val: [0, 0]
       }]
     },
     1: {

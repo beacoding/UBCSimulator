@@ -16,8 +16,8 @@ const images = {
 }
 
 var blankSlate = {
-  gpa: 0,
-  happiness: 0,
+  gpa: 250,
+  happiness: 50,
 
 
   initialized: false,
@@ -184,6 +184,7 @@ class App extends React.Component {
     let consequence = this.state.consequence && this.state.finished && !this.state.win ? <div> {this.state.consequence} </div> : null;
     let win = this.state.finished && this.state.win ? <div> You Won! </div> : null;
     let startButton = !this.state.initialized ? <div><button onClick = {this.initializeHandler.bind(this)}> Start Game </button></div> : null;
+
     let startText = !this.state.initialized ? <div> You're goal is to get through the year with a 4.0 GPA and outstanding popularity! <br/> </div> : null;
 
     return (
