@@ -98,5 +98,17 @@ var questions = {
           reply: 'Torrent it',
           val: [0, 0]
         }]
+    },
+    7: {
+      prompt: 'A Sauder student comes by to pitch you an idea for a new startup for a ',
+      img: 'rapper-02',
+      choices:
+      [{
+        reply: "Keep on walking and pretend you didn't hear",
+        val: [20, 20]
+      }, {
+        reply: 'When do we start?',
+        val: [-20, -10]
+      }]
     }
 }

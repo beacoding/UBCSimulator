@@ -164,8 +164,8 @@ function submitText(e) {
     decisionSet[index] = obj.right;
   }
 
-  gpa += decisionSet[index].val[0];
-  happiness += decisionSet[index].val[1];
+  gpa = setGPA(decisionSet[index].val[0]);
+  happiness =  setHappiness(decisionSet[index].val[1]);
   gpaText = gpaText.setText('GPA: ' + gpa);
   happinessText = happinessText.setText('Happiness: ' + happiness);
 
@@ -193,6 +193,22 @@ function submitText(e) {
   }
 
   listener();
+}
+
+function setGPA(value) {
+  if ((gpa + value) > 400) {
+    return 400;
+  } else {
+    return gpa + value;
+  }
+}
+
+function setHappiness(value) {
+  if ((happiness + value) > 100) {
+    return 100;
+  } else {
+    return happiness + value;
+  }
 }
 
 function listener () {
