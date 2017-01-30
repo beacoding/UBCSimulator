@@ -1,6 +1,6 @@
 module.exports = {
     0: {
-      prompt: 'You just started the school year with a perfect 4.0 GPA',
+      prompt: 'You just started the school year with a perfect 2.50 GPA',
       img: 'tanya',
       choices: [{
         reply: 'Awesome',
