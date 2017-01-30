@@ -1,7 +1,10 @@
 var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'gameArea', { preload: preload, create: create, update: update });
 
-// Phaser.ScaleManager.EXACT_FIT = 1;
-Phaser.ScaleManager.EXACT_FIT = 1;
+Phaser.ScaleManager.SHOW_ALL= 1;
+// Phaser.ScaleManager.NO_SCALE = 1;
+// Phaser.ScaleManager.SHOW_ALL = 2;
+
+
 
 // //this.scale.pageAlignHorizontally = true;
 // this.scale.pageAlignVertically = true;
@@ -16,6 +19,14 @@ WebFontConfig = {
     }
 
 };
+
+function resizeGame() {
+    game.scale.setGameSize($( window ).width(), $( window ).height());
+}
+
+$(window).resize(function() {
+    resizeGame();
+});
 
 function preload() {
   game.load.image('sky', 'assets/title-screen-background.png');
