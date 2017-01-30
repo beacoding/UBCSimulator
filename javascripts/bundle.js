@@ -70,7 +70,8 @@
 	  designer02: 'assets/designer-02.png',
 	  backenddev01: 'assets/backend-dev-01.png',
 	  rapper02: 'assets/rapper-02.png',
-	  defeatDefault: 'assets/defeat-default.png'
+	  defeatDefault: 'assets/defeat-default.png',
+	  victory: 'assets/victory-01.png'
 	};
 	
 	var blankSlate = {
@@ -90,7 +91,8 @@
 	  choice2: null,
 	  index: 0,
 	  obj: null,
-	  reply: null
+	  reply: null,
+	  win: false
 	};
 	
 	var App = function (_React$Component) {
@@ -160,13 +162,7 @@
 	      var happiness = this.setHappiness(this.state.decisionSet[this.state.index].val[1]);
 	      var consequence = this.state.decisionSet[this.state.index].consequence || this.state.consequence;
 	
-	      this.setState({
-	        gpa: gpa,
-	        happiness: happiness,
-	        consequence: consequence
-	      });
-	
-	      if (this.state.gpa < 0 || this.state.happiness < 0) {
+	      if (gpa < 0 || happiness < 0) {
 	        this.setState({
 	          choice1: null,
 	          choice2: null,
@@ -174,9 +170,17 @@
 	          currentCharacter: images['defeatDefault'],
 	          finished: true,
 	          gpa: 0,
-	          happiness: 0
+	          happiness: 0,
+	          consequence: consequence
 	        });
 	      } else {
+	        console.log('IN HERE');
+	        this.setState({
+	          gpa: gpa,
+	          happiness: happiness,
+	          consequence: consequence
+	        });
+	
 	        if (this.state.decisionSet[this.state.index].prompt === undefined) {
 	          decisionSet = this.state.decisionSet;
 	          decisionSet.splice(this.state.index, 1);
@@ -219,7 +223,10 @@
 	        this.setState({
 	          choice1: null,
 	          choice2: null,
-	          finished: true
+	          finished: true,
+	          win: true,
+	          question: null,
+	          character: images['victory']
 	        });
 	      } else {
 	        var obj = this.state.decisionSet[index];
@@ -247,36 +254,64 @@
 	        ' '
 	      ) : null;
 	      var choice1 = this.state.choice1 ? React.createElement(
-	        'button',
-	        { onClick: this.choiceHandler.bind(this), value: this.state.choice1 },
-	        this.state.choice1
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.choiceHandler.bind(this), value: this.state.choice1 },
+	          this.state.choice1
+	        )
 	      ) : null;
 	      var choice2 = this.state.choice2 ? React.createElement(
-	        'button',
-	        { onClick: this.choiceHandler.bind(this), value: this.state.choice2 },
-	        this.state.choice2
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.choiceHandler.bind(this), value: this.state.choice2 },
+	          this.state.choice2
+	        )
 	      ) : null;
 	      var currentCharacter = this.state.currentCharacter ? React.createElement(
 	        'div',
 	        null,
-	        React.createElement('img', { src: this.state.currentCharacter })
+	        React.createElement('img', { className: 'current-character', src: this.state.currentCharacter })
 	      ) : null;
 	      var finished = this.state.finished ? React.createElement(
-	        'button',
-	        { onClick: this.restart.bind(this) },
-	        ' Restart'
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.restart.bind(this) },
+	          ' Restart'
+	        )
 	      ) : null;
-	      var consequence = this.state.consequence && this.state.finished ? React.createElement(
+	      var consequence = this.state.consequence && this.state.finished && !this.state.win ? React.createElement(
 	        'div',
 	        null,
 	        ' ',
 	        this.state.consequence,
 	        ' '
 	      ) : null;
+	      var win = this.state.finished && this.state.win ? React.createElement(
+	        'div',
+	        null,
+	        ' You Won! '
+	      ) : null;
 	      var startButton = !this.state.initialized ? React.createElement(
-	        'button',
-	        { onClick: this.initializeHandler.bind(this) },
-	        ' Start Game '
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.initializeHandler.bind(this) },
+	          ' Start Game '
+	        )
+	      ) : null;
+	      var startText = !this.state.initialized ? React.createElement(
+	        'div',
+	        null,
+	        ' You\'re goal is to get through the year with a 4.0 GPA and outstanding popularity! ',
+	        React.createElement('br', null),
+	        ' '
 	      ) : null;
 	
 	      return React.createElement(
@@ -284,22 +319,27 @@
 	        null,
 	        React.createElement(
 	          'div',
-	          { className: 'scores' },
-	          'GPA: ',
-	          this.state.gpa,
-	          ' Happiness: ',
-	          this.state.happiness
-	        ),
-	        React.createElement(
-	          'div',
 	          { className: 'container' },
-	          startButton,
-	          question,
-	          currentCharacter,
-	          choice1,
-	          choice2,
-	          consequence,
-	          finished
+	          React.createElement(
+	            'div',
+	            { className: 'align-items' },
+	            React.createElement(
+	              'div',
+	              { className: 'scores' },
+	              'GPA: ',
+	              this.state.gpa,
+	              ' Social Life: ',
+	              this.state.happiness
+	            ),
+	            startButton,
+	            question,
+	            currentCharacter,
+	            choice1,
+	            choice2,
+	            consequence,
+	            win,
+	            finished
+	          )
 	        )
 	      );
 	    }

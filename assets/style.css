@@ -15,6 +15,8 @@ body {
 	background-size: 100%, 25%;
 	margin: 0 auto;
 	padding: 0;
+	font-family: 'VT323', monospace;
+	font-size: 1.3em;
 }
 canvas {
     margin: 0;
@@ -29,4 +31,72 @@ canvas {
     outline: none;
     width: 100%;
     height: 100%;
+}
+
+.current-character {
+	width: 50%;
+}
+
+#app {
+	height: 100%;
+	width: 100%;
+}
+
+#app > [data-reactroot] {
+	height: 100%;
+	width: 100%;
+}
+
+.container {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	text-align: center;
+}
+
+.align-items {
+	height: 450px;
+	width: 300px;
+	background-color: rgba(85, 79, 86, 0.95);
+	padding: 20px;
+}
+
+.container img {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+button {
+  display: inline-block;
+  padding: 5px 15px;
+  min-width: 30px;
+  display: inline-block;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: grey;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px #999;
+  margin: 10px;
+  font-family: 'VT323', monospace;
+}
+
+button:hover {background-color: rgba(102, 100, 103, 0.95)}
+
+button:active {
+  background-color: rgba(102, 100, 103, 0.95);
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.scores {
+	color: #68ff8b;
+	padding-bottom: 30px;
 }

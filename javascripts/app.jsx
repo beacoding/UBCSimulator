@@ -11,7 +11,8 @@ const images = {
   designer02: 'assets/designer-02.png',
   backenddev01: 'assets/backend-dev-01.png',
   rapper02: 'assets/rapper-02.png',
-  defeatDefault: 'assets/defeat-default.png'
+  defeatDefault: 'assets/defeat-default.png',
+  victory: 'assets/victory-01.png'
 }
 
 var blankSlate = {
@@ -32,7 +33,8 @@ var blankSlate = {
   choice2: null,
   index: 0,
   obj: null,
-  reply: null
+  reply: null,
+  win: false
 }
 
 class App extends React.Component {
@@ -90,14 +92,7 @@ class App extends React.Component {
     let happiness =  this.setHappiness(this.state.decisionSet[this.state.index].val[1]);
     let consequence = this.state.decisionSet[this.state.index].consequence || this.state.consequence;
 
-
-    this.setState({
-      gpa: gpa,
-      happiness: happiness,
-      consequence: consequence
-    })
-
-    if (this.state.gpa < 0 || this.state.happiness < 0) {
+    if (gpa < 0 || happiness < 0) {
       this.setState({
         choice1: null,
         choice2: null,
@@ -105,9 +100,17 @@ class App extends React.Component {
         currentCharacter: images['defeatDefault'],
         finished: true,
         gpa: 0,
-        happiness: 0
-      })
+        happiness: 0,
+        consequence: consequence
+      });
     } else {
+      console.log('IN HERE');
+      this.setState({
+        gpa: gpa,
+        happiness: happiness,
+        consequence: consequence
+      });
+
       if (this.state.decisionSet[this.state.index].prompt === undefined) {
         decisionSet = this.state.decisionSet;
         decisionSet.splice(this.state.index, 1);
@@ -150,7 +153,10 @@ class App extends React.Component {
       this.setState({
         choice1: null,
         choice2: null,
-        finished: true
+        finished: true,
+        win: true,
+        question: null,
+        character: images['victory']
       });
     } else {
       let obj = this.state.decisionSet[index];
@@ -171,26 +177,29 @@ class App extends React.Component {
 
   render() {
     let question = this.state.question ? <div> {this.state.question} </div> : null;
-    let choice1 = this.state.choice1 ? <button onClick={this.choiceHandler.bind(this)} value={this.state.choice1}>{this.state.choice1}</button> : null;
-    let choice2 = this.state.choice2 ? <button onClick={this.choiceHandler.bind(this)} value={this.state.choice2}>{this.state.choice2}</button> : null;
-    let currentCharacter = this.state.currentCharacter ? <div><img src={this.state.currentCharacter}></img></div> : null;
-    let finished = this.state.finished ? <button onClick={this.restart.bind(this)}> Restart</button> : null;
-    let consequence = this.state.consequence && this.state.finished ? <div> {this.state.consequence} </div> : null;
-    let startButton = !this.state.initialized ? <button onClick = {this.initializeHandler.bind(this)}> Start Game </button> : null
+    let choice1 = this.state.choice1 ? <div><button onClick={this.choiceHandler.bind(this)} value={this.state.choice1}>{this.state.choice1}</button></div> : null;
+    let choice2 = this.state.choice2 ? <div><button onClick={this.choiceHandler.bind(this)} value={this.state.choice2}>{this.state.choice2}</button></div> : null;
+    let currentCharacter = this.state.currentCharacter ? <div><img className="current-character" src={this.state.currentCharacter}></img></div> : null;
+    let finished = this.state.finished ? <div><button onClick={this.restart.bind(this)}> Restart</button></div> : null;
+    let consequence = this.state.consequence && this.state.finished && !this.state.win ? <div> {this.state.consequence} </div> : null;
+    let win = this.state.finished && this.state.win ? <div> You Won! </div> : null;
+    let startButton = !this.state.initialized ? <div><button onClick = {this.initializeHandler.bind(this)}> Start Game </button></div> : null;
+    let startText = !this.state.initialized ? <div> You're goal is to get through the year with a 4.0 GPA and outstanding popularity! <br/> </div> : null;
 
     return (
       <div>
-        <div className="scores">
-          GPA: {this.state.gpa} Happiness: {this.state.happiness}
-        </div>
         <div className="container">
-          {startButton}
-          {question}
-          {currentCharacter}
-          {choice1}
-          {choice2}
-          {consequence}
-          {finished}
+          <div className="align-items">
+            <div className="scores">GPA: {this.state.gpa} Social Life: {this.state.happiness}</div>
+            {startButton}
+            {question}
+            {currentCharacter}
+            {choice1}
+            {choice2}
+            {consequence}
+            {win}
+            {finished}
+          </div>
         </div>
       </div>
       );
