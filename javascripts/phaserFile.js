@@ -178,6 +178,8 @@ function submitText(e) {
     currentCharacter.loadTexture('defeat-default');
     finishedText.setText(reason);
     restartText.setText('Restart');
+    gpaText = gpaText.setText('GPA: 0');
+    happinessText = happinessText.setText('Happiness: 0');
     return;
   }
 
@@ -198,8 +200,6 @@ function submitText(e) {
 function setGPA(value) {
   if ((gpa + value) > 400) {
     return 400;
-  } else if (gpa + value < 0) {
-    return 0;
   } else {
     return gpa + value;
   }
@@ -208,9 +208,7 @@ function setGPA(value) {
 function setHappiness(value) {
   if ((happiness + value) > 100) {
     return 100;
-  } else if (gpa + value < 0) {
-    return 0;
-  } else {
+  }else {
     return happiness + value;
   }
 }
