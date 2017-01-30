@@ -1,4 +1,4 @@
-var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'gameArea', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'gameArea', { preload: preload, create: create, update: update });
 
 // Phaser.ScaleManager.EXACT_FIT = 1;
 Phaser.ScaleManager.EXACT_FIT = 1;
