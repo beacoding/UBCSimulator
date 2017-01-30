@@ -4,10 +4,10 @@ var questions = {
       img: 'tanya',
       choices: [{
         reply: 'Awesome',
-        val: [250, 20],
+        val: [25, 20],
       }, {
         reply: 'Sweet',
-        val: [250, 20]
+        val: [25, 20]
       }]
     },
     1: {
@@ -15,7 +15,7 @@ var questions = {
       img: 'roy-sales',
       choices: [{
         reply: 'Yes',
-        val: [-100, 10],
+        val: [-10, 10],
         consequence: 'You ran out of money cause insurance cost too much'
       }, {
         reply: 'No',
@@ -29,12 +29,15 @@ var questions = {
       choices:
         [{
           reply: 'Yes',
-          val: [300, 30],
+          val: [30, 30],
           prompt: 'AnEyeout got into your Course!',
           img: 'designer-01',
           choices: [{
             reply: 'Awesome',
-            val: [500, 20]
+            val: [50, 20]
+          }, {
+            reply: 'Cool',
+            val: [50, 20]
           }]
         },
         {
@@ -87,7 +90,7 @@ var questions = {
           img: 'roy-sales',
           choices: [{
             reply: 'Awesome',
-            val: [500, 20]
+            val: [50, 20]
           },{
             reply: 'Quit School',
             val: [-1000, -1000],

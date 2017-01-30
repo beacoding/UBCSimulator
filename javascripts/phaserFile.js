@@ -198,6 +198,8 @@ function submitText(e) {
 function setGPA(value) {
   if ((gpa + value) > 400) {
     return 400;
+  } else if (gpa + value < 0) {
+    return 0;
   } else {
     return gpa + value;
   }
@@ -206,6 +208,8 @@ function setGPA(value) {
 function setHappiness(value) {
   if ((happiness + value) > 100) {
     return 100;
+  } else if (gpa + value < 0) {
+    return 0;
   } else {
     return happiness + value;
   }
