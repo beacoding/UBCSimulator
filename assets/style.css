@@ -5,7 +5,10 @@ html, body {
     padding: 0;
     background: black;
 }
-
+canvas {
+    margin: 0;
+    padding: 0;
+}
 #gameArea {
     width: 99vw;
     height: 99vh;

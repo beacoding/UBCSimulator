@@ -73,11 +73,11 @@ var styles = {
 
 function create() {
   //initialize sky
-  game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+  game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
   game.scale.pageAlignVertically = true;
   game.stage.backgroundColor = "#60D6FF";
-  sky = game.add.sprite(0, game.world.height - 700, 'sky');
-  sky.width = game.width;
+  sky = game.add.sprite(0, game.world.height - 350, 'sky');
+  sky.scale.setTo(0.75,0.5);
   container = Phaser.Rectangle(game.world.centerX, game.world.centerY, 100, 300);
 
   gpa = 0;
@@ -92,29 +92,29 @@ function create() {
 
 
   //initialize current character
-  currentCharacter = game.add.sprite(game.world.centerX, game.world.centerY - 200, 'tanya');
+  currentCharacter = game.add.sprite(game.world.centerX, game.world.centerY - 100, 'tanya');
   currentCharacter.anchor.setTo(0.5);
   currentCharacter.scale.setTo(0.4)
 }
 
 function addText() {
   //initialize gpaScore and happiness score
-  gpaText = createText('GPA: 0', game.world.centerX - 140,16);
-  happinessText = createText('Happiness: 0', game.world.centerX - 30 , 16);
-  monthText = createText('Month: ' + months[currentMonthIndex], game.world.centerX, 75);
+  gpaText = createText('GPA: 0', game.world.centerX - 140,116);
+  happinessText = createText('Happiness: 0', game.world.centerX - 30 , 116);
+  monthText = createText('Month: ' + months[currentMonthIndex], game.world.centerX, 175);
 
   //initialize question text
-  initializeText = game.add.text(game.world.centerX,game.world.centerY - 400, "Start game", styles);
-  questionText = game.add.text(game.world.centerX,game.world.centerY - 400, "", styles);
+  initializeText = game.add.text(game.world.centerX,game.world.centerY - 300, "Start game", styles);
+  questionText = game.add.text(game.world.centerX,game.world.centerY - 300, "", styles);
 
 
 
   //initialize choices text
-  choiceOneText = createText("", game.world.centerX, game.world.centerY);
-  choiceTwoText = createText("", game.world.centerX, game.world.centerY + 50);
+  choiceOneText = createText("", game.world.centerX, game.world.centerY + 100);
+  choiceTwoText = createText("", game.world.centerX, game.world.centerY + 150);
 
-  finishedText = createText("", game.world.centerX, game.world.centerY);
-  restartText = createText("", game.world.centerX, game.world.centerY + 50);
+  finishedText = createText("", game.world.centerX, game.world.centerY + 100);
+  restartText = createText("", game.world.centerX, game.world.centerY + 150);
 
 
 
