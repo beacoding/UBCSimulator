@@ -236,8 +236,8 @@ function listener () {
     obj = decisionSet[index];
     question = obj.prompt;
     reply = obj.reply;
-    choice1 = obj.left ? obj.left.reply : null;
-    choice2 = obj.right ? obj.right.reply : null;
+    choice1 = obj.left ? obj.left.reply : "";
+    choice2 = obj.right ? obj.right.reply : "";
 
     currentCharacter.loadTexture(obj.img);
 
