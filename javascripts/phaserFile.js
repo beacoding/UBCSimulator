@@ -1,15 +1,4 @@
-var game = new Phaser.Game(1920, 1280, Phaser.CANVAS, 'gameArea', { preload: preload, create: create, update: update });
-
-// Phaser.ScaleManager.EXACT_FIT= 1;
-// Phaser.ScaleManager.NO_SCALE = 1;
-// Phaser.ScaleManager.SHOW_ALL = 2;
-
-
-
-// //this.scale.pageAlignHorizontally = true;
-// this.scale.pageAlignVertically = true;
-// this.scale.setScreenSize( true );
-
+var game = new Phaser.Game(1920, 1100, Phaser.CANVAS, 'gameArea', { preload: preload, create: create, update: update });
 
 WebFontConfig = {
     active: function() { game.time.events.add(Phaser.Timer.QUARTER, addText, this); },
@@ -85,6 +74,7 @@ var styles = {
 function create() {
   //initialize sky
   game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+  game.scale.pageAlignVertically = true;
   game.stage.backgroundColor = "#60D6FF";
   sky = game.add.sprite(0, game.world.height - 700, 'sky');
   sky.width = game.width;
@@ -109,9 +99,9 @@ function create() {
 
 function addText() {
   //initialize gpaScore and happiness score
-  gpaText = createText('GPA: 0', 16,16);
-  happinessText = createText('Happiness: 0', 350, 16);
-  monthText = createText('Month: ' + months[currentMonthIndex], 600, 16);
+  gpaText = createText('GPA: 0', game.world.centerX - 140,16);
+  happinessText = createText('Happiness: 0', game.world.centerX - 30 , 16);
+  monthText = createText('Month: ' + months[currentMonthIndex], game.world.centerX, 75);
 
   //initialize question text
   initializeText = game.add.text(game.world.centerX,game.world.centerY - 400, "Start game", styles);
@@ -145,6 +135,7 @@ function addText() {
   finishedText.anchor.setTo(0.5);
   questionText.anchor.setTo(0.5);
   initializeText.anchor.setTo(0.5);
+  monthText.anchor.setTo(0.5);
 }
 
 function createText(text, xshift, yshift) {
