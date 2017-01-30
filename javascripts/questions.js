@@ -35,10 +35,7 @@ var questions = {
           choices: [{
             reply: 'Awesome',
             val: [50, 20]
-          }, {
-            reply: 'Cool',
-            val: [50, 20]
-          }]
+          }
         },
         {
           reply: 'No',
