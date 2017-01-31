@@ -15,7 +15,8 @@ const images = {
   defeatDefault: 'assets/defeat-default.png',
   victory: 'assets/victory-01.png',
   assistant: 'assets/assistant.png',
-  productManager: 'assets/product-manager.png'
+  productManager: 'assets/product-manager.png',
+  cfo: 'assets/cfo.png'
 }
 
 const months = {

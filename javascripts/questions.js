@@ -15,7 +15,7 @@ module.exports = {
       img: 'roySales',
       choices: [{
         reply: 'Yes',
-        val: [-10, 10],
+        val: [30, 10],
         consequence: 'You ran out of money cause insurance cost too much'
       }, {
         reply: 'No',
@@ -65,12 +65,12 @@ module.exports = {
         choices:
           [{
             reply: "It wasn't me",
-            val: [-50, -5],
+            val: [-40, -5],
             consequence: 'Gregor calls you out in class and stares you down that you never want to go to school again'
           },
           {
             reply: 'Slide down your desk',
-            val: [-50, -5],
+            val: [-40, -5],
             consequence: 'Gregor still caught you'
           }
           ]
@@ -111,10 +111,12 @@ module.exports = {
       choices:
       [{
         reply: "Keep on walking and pretend you didn't hear",
-        val: [20, 20]
+        val: [20, -40],
+        consequence: "The Sauder kid ran a marketing campaign to defame you"
       }, {
         reply: 'When do we start?',
-        val: [-20, -10]
+        consequence: "Yelp but for Dating was a disaster",
+        val: [-30, -10]
       }]
     },
     8: {
@@ -174,7 +176,7 @@ module.exports = {
         }, {
           reply: "Write a facebook post and apologize",
           consequence: "You spent too much time writing your facebook post and ignored your grades",
-          val: [-10, 5]
+          val: [-30, 5]
         }
         ]
       }]
@@ -185,10 +187,10 @@ module.exports = {
       choices:
       [{
         reply: 'Alpha Phi is for me',
-        val: [10, 30],
+        val: [10, 20],
       }, {
         reply: 'Are there any LAN parties?',
-        val: [20, 20],
+        val: [20, 10],
       }]
     },
     11: {
@@ -198,7 +200,7 @@ module.exports = {
       [{
         reply: 'Waste my time 2017',
         consequence: "You wasted your time now 2017 is over.",
-        val: [-10, -5]
+        val: [-70, -5]
       }]
     },
     12: {
@@ -221,7 +223,7 @@ module.exports = {
       choices: [{
         reply: 'Chase them around with a baseball bat',
         consequence: "Your best friend retaliates and murders you",
-        val: [-10, 10],
+        val: [-40, 10],
       }, {
         reply: 'Join them',
         val: [10, 20],
@@ -247,27 +249,120 @@ module.exports = {
       img: 'rapper02',
       immediate: true,
       choices: [{
-        reply: 'I think we should do',
+        reply: 'I think we should do it',
         val: [0, 0],
         prompt: 'Your lab partner thinks you should just stay friends',
         img: 'rapper02',
         choices: [{
           reply: 'Oh...',
-          val: [0, -20],
+          val: [-10, -20],
           consequence: 'Your lab partner broke your heart'
         }]
       },{
         reply: 'I think we should do our lab',
-        val: [10, -5],
+        val: [20, -5],
         prompt: 'Your lab partner wants to take it to the next level',
         img: 'rapper02',
         choices: [{
-          reply: 'I think we should do',
-          val: [0, 20]
+          reply: 'I think we should do it',
+          val: [20, 10]
         }, {
           reply: 'I think we should do our lab',
-          val: [20, -10],
+          val: [-40, -10],
           consequence: "Your lab partner started a rumor that you're a Trump supporter"
+        }]
+      }]
+    },
+    16: {
+      prompt: "You found a UBC ID on the ground",
+      img: 'designer01',
+      choices: [{
+        reply: "Look for the owner",
+        consequence: "You spent too much time trying to look for the owner",
+        val: [-20, 0],
+        prompt: "You found the owner of the UBC id! Ask for a favor?",
+        img: 'designer01',
+        choices: [{
+          reply: "Please take my midterm tomorrow",
+          val: [0, 10],
+          prompt: "You managed to avoid getting caught cheating and got a 100% on your midterm!",
+          img: 'designer01',
+          choices: [{
+            reply: "Awesome",
+            val: [40, 0]
+          }]
+        }, {
+          reply: "Have a nice day!",
+          val: [0, 30]
+        }]
+      }]
+    },
+    17: {
+      prompt: "Someone wrote a post about you on UBC Crushes",
+      img: 'productManager',
+      choices: [{
+        reply: "Ayyyyy",
+        val: [0, 10]
+      }]
+    },
+    18: {
+      prompt: "15000 Courses have been signed up to AnEyeOut Free! Should you use Premium which only tracks 85 courses?",
+      img: 'backenddev01',
+      choices: [{
+        reply: "Yes",
+        val: [20, 20]
+      }, {
+        reply: "Free is good",
+        val: [10, 20]
+      }]
+    },
+    19: {
+      prompt: "You come back from a trip to find your roommate's breakfast from a week ago still on the countertop",
+      img: 'rapper02',
+      choices: [{
+        reply: 'Kick him',
+        val: [-20, -15],
+        consequence: "Your roommate sued you and you can't afford tuition anymore"
+      }, {
+        reply: 'Ignore it',
+        val: [-40, 5],
+        consequence: "You died from inhaling toxic fumes from your roommate's breakfast"
+      }]
+    },
+    20: {
+      prompt: "You forgot your iClicker",
+      img: 'rapper02',
+      choices: [{
+        reply: "It's just for bonus marks anyway",
+        val: [-30, 0]
+      }, {
+        reply: "Call your best friend to bring their ass down to DMP 310",
+        val: [10, 0]
+      }]
+    },
+    21: {
+      prompt: "You have to take an elective",
+      img: 'cfo',
+      immediate: true,
+      choices: [{
+        reply: 'FNH 330 - Intro to Wine Science',
+        val: [10, 5],
+        prompt: 'You got totally wasted',
+        img: 'cfo',
+        choices: [{
+          reply: 'It is what it is. Round 2?',
+          val: [-20, 10]
+        }]
+      }, {
+        reply: 'FIPR 131 – Intro to Screen Acting',
+        val: [10, 5],
+        prompt: "You got offered a role to be an extrafor Fifty Shades of Grey",
+        choices: [{
+          reply: "Ditch all your friends because you're a superstar now",
+          val: [-10, -30]
+        }, {
+          reply: "Fifty Shades of Nay",
+          val: [50, 0]
         }]
       }]
     }
