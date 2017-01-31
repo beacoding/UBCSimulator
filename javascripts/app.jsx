@@ -12,7 +12,8 @@ const images = {
   backenddev01: 'assets/backend-dev-01.png',
   rapper02: 'assets/rapper-02.png',
   defeatDefault: 'assets/defeat-default.png',
-  victory: 'assets/victory-01.png'
+  victory: 'assets/victory-01.png',
+  assistant: 'assets/assistant.png'
 }
 
 const months = {
@@ -63,9 +64,10 @@ class App extends React.Component {
 
   restart() {
     this.setState(blankSlate);
+    let decisionSet = buildTree(questions);
     this.setState({
-      questionsPerMonth: Math.floor(Object.keys(this.state.decisionSet).length / 9),
-      decisionSet: buildTree(questions)
+      questionsPerMonth: Math.floor(Object.keys(decisionSet).length / 9),
+      decisionSet: decisionSet
     });
   }
 
@@ -116,7 +118,6 @@ class App extends React.Component {
         consequence: consequence
       });
     } else {
-      console.log('IN HERE');
       this.setState({
         gpa: gpa,
         happiness: happiness,
@@ -131,18 +132,35 @@ class App extends React.Component {
         });
       }
 
-      this.setState({
-        questionsSoFar: this.state.questionsSoFar + 1,
-      });
+      let questionsSoFar = this.state.questionsSoFar + 1;
 
-      if (this.state.questionsSoFar > this.state.questionsPerMonth) {
+      if (this.state.currentMonthIndex + 1 > 8 || !decisionSet.length) {
+        let win = this.state.gpa > 300 ? true : false;
+        let character = this.state.gpa > 300 ? images['victory'] : images['defeatDefault'];
         this.setState({
-          currentMonthIndex: this.state.currentMonthIndex + 1,
-          questionsSoFar: 0
-        })
-      }
+          choice1: null,
+          choice2: null,
+          finished: true,
+          win: win,
+          question: null,
+          currentCharacter: character,
+          consequence: "You failed to achieve at least a 3.0 GPA during the school year"
+        });
+      } else {
+        this.setState({
+          questionsSoFar: questionsSoFar
+        });
 
-      this.initializeHandler();
+        if (questionsSoFar === this.state.questionsPerMonth) {
+          this.setState({
+            currentMonthIndex: this.state.currentMonthIndex + 1,
+            questionsSoFar: 0
+          })
+        }
+
+        this.initializeHandler();
+
+      }
     }
   }
 
@@ -160,33 +178,18 @@ class App extends React.Component {
         index: index
       });
     }
+    let obj = this.state.decisionSet[index];
+    let choice1 = obj.left ? obj.left.reply : null;
+    let choice2 = obj.right ? obj.right.reply : null;
 
-    if (!this.state.decisionSet.length || this.state.currentMonthIndex > 11) {
-      let win = this.state.gpa > 300 ? true : false;
-      let character = this.state.gpa > 300 ? images['victory'] : images['defeatDefault'];
-      this.setState({
-        choice1: null,
-        choice2: null,
-        finished: true,
-        win: win,
-        question: null,
-        currentCharacter: character,
-        consequence: "You failed to achieve at least a 3.0 GPA during the school year"
-      });
-    } else {
-      let obj = this.state.decisionSet[index];
-      let choice1 = obj.left ? obj.left.reply : null;
-      let choice2 = obj.right ? obj.right.reply : null;
-
-      this.setState({
-        obj: obj,
-        question: obj.prompt,
-        reply: obj.reply,
-        choice1: choice1,
-        choice2: choice2,
-        currentCharacter: images[obj.img]
-      });
-    }
+    this.setState({
+      obj: obj,
+      question: obj.prompt,
+      reply: obj.reply,
+      choice1: choice1,
+      choice2: choice2,
+      currentCharacter: images[obj.img]
+    });
   }
   
 
@@ -207,7 +210,7 @@ class App extends React.Component {
       <div className="subtitle"> powered by Slacknotes </div>
         <div className="container">
           <div className="align-items">
-            <div className="scores">GPA: {Math.round(this.state.gpa * 100) / 10000} # Of Friends: {this.state.happiness} <br/>Month: {months[this.state.currentMonthIndex]}</div>
+            <div className="scores"><span className="score1">GPA: {Math.round(this.state.gpa * 100) / 10000}</span><span className="score2"> # Of Friends: {this.state.happiness}</span> <br/><div>Month: {months[this.state.currentMonthIndex]}</div></div>
             {startImage}
             {startText}
             {startButton}

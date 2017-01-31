@@ -81,7 +81,7 @@ module.exports = {
       choices:
         [{
           reply: 'Cave in',
-          val: [-80, 10],
+          val: [20, -10],
           consequence: 'You ran out of money.',
           prompt: "You found a golden ticket in Gateman's textbook!",
           img: 'roySales',
@@ -137,5 +137,29 @@ module.exports = {
         reply: "No one because you have no friends",
         val: [0, -10],
       }]
-    }
+    },
+    9: {
+      prompt: "You are running late for class but you catch a dying squirrel in the corner of your eye",
+      img: 'assistant',
+      choices:
+      [{
+        reply: "Survival of the fittest and walk away",
+        val: [0, -30],
+      }, {
+        reply: "Take it out of its misery",
+        val: [-20, -50],
+      }]
+    },
+    10: {
+      prompt: "Everybody is trying to recruit you to their sorority and fraternities",
+      img: 'roySales',
+      choices:
+      [{
+        reply: 'Alpha Phi here I come',
+        val: [10, 30]
+      }, {
+        reply: 'Are there any LAN parties?',
+        val: [20, 20]
+      }]
+    },
 }

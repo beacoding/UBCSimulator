@@ -9,7 +9,7 @@ html {
 
 body {
 	height: 100%;
-	background-image: url('/assets/title-screen-background.png');
+	background-image: url('/assets/ubc4.png');
 	background-position: center bottom;
 	background-repeat: no-repeat;
 	background-size: 100%, 25%;
@@ -102,7 +102,13 @@ button {
   margin: 10px;
   font-family: 'VT323', monospace;
 }
+.score1 {
+	float: left;
+}
 
+.score2 {
+	float: right;
+}
 button:hover {background-color: rgba(102, 100, 103, 0.95)}
 
 button:active {

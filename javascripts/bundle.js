@@ -71,22 +71,20 @@
 	  backenddev01: 'assets/backend-dev-01.png',
 	  rapper02: 'assets/rapper-02.png',
 	  defeatDefault: 'assets/defeat-default.png',
-	  victory: 'assets/victory-01.png'
+	  victory: 'assets/victory-01.png',
+	  assistant: 'assets/assistant.png'
 	};
 	
 	var months = {
-	  0: 'January',
-	  1: 'February',
-	  2: 'March',
-	  3: 'April',
-	  4: 'May',
-	  5: 'June',
-	  6: 'July',
-	  7: 'August',
-	  8: 'September',
-	  9: 'October',
-	  10: 'November',
-	  11: 'December'
+	  0: 'September',
+	  1: 'October',
+	  2: 'November',
+	  3: 'December',
+	  4: 'January',
+	  5: 'February',
+	  6: 'March',
+	  7: 'April',
+	  8: 'May'
 	};
 	
 	var blankSlate = {
@@ -133,9 +131,10 @@
 	    key: 'restart',
 	    value: function restart() {
 	      this.setState(blankSlate);
+	      var decisionSet = buildTree(questions);
 	      this.setState({
-	        questionsPerMonth: Math.floor(Object.keys(this.state.decisionSet).length / 9),
-	        decisionSet: buildTree(questions)
+	        questionsPerMonth: Math.floor(Object.keys(decisionSet).length / 9),
+	        decisionSet: decisionSet
 	      });
 	    }
 	  }, {
@@ -189,7 +188,6 @@
 	          consequence: consequence
 	        });
 	      } else {
-	        console.log('IN HERE');
 	        this.setState({
 	          gpa: gpa,
 	          happiness: happiness,
@@ -204,18 +202,34 @@
 	          });
 	        }
 	
-	        this.setState({
-	          questionsSoFar: this.state.questionsSoFar + 1
-	        });
+	        var questionsSoFar = this.state.questionsSoFar + 1;
 	
-	        if (this.state.questionsSoFar > this.state.questionsPerMonth) {
+	        if (this.state.currentMonthIndex + 1 > 8 || !decisionSet.length) {
+	          var win = this.state.gpa > 300 ? true : false;
+	          var character = this.state.gpa > 300 ? images['victory'] : images['defeatDefault'];
 	          this.setState({
-	            currentMonthIndex: this.state.currentMonthIndex + 1,
-	            questionsSoFar: 0
+	            choice1: null,
+	            choice2: null,
+	            finished: true,
+	            win: win,
+	            question: null,
+	            currentCharacter: character,
+	            consequence: "You failed to achieve at least a 3.0 GPA during the school year"
 	          });
-	        }
+	        } else {
+	          this.setState({
+	            questionsSoFar: questionsSoFar
+	          });
 	
-	        this.initializeHandler();
+	          if (questionsSoFar === this.state.questionsPerMonth) {
+	            this.setState({
+	              currentMonthIndex: this.state.currentMonthIndex + 1,
+	              questionsSoFar: 0
+	            });
+	          }
+	
+	          this.initializeHandler();
+	        }
 	      }
 	    }
 	  }, {
@@ -233,33 +247,18 @@
 	          index: index
 	        });
 	      }
+	      var obj = this.state.decisionSet[index];
+	      var choice1 = obj.left ? obj.left.reply : null;
+	      var choice2 = obj.right ? obj.right.reply : null;
 	
-	      if (!this.state.decisionSet.length || this.state.currentMonthIndex > 11) {
-	        var win = this.state.gpa > 300 ? true : false;
-	        var character = this.state.gpa > 300 ? images['victory'] : images['defeatDefault'];
-	        this.setState({
-	          choice1: null,
-	          choice2: null,
-	          finished: true,
-	          win: win,
-	          question: null,
-	          currentCharacter: character,
-	          consequence: "You failed to achieve at least a 3.0 GPA during the school year"
-	        });
-	      } else {
-	        var obj = this.state.decisionSet[index];
-	        var choice1 = obj.left ? obj.left.reply : null;
-	        var choice2 = obj.right ? obj.right.reply : null;
-	
-	        this.setState({
-	          obj: obj,
-	          question: obj.prompt,
-	          reply: obj.reply,
-	          choice1: choice1,
-	          choice2: choice2,
-	          currentCharacter: images[obj.img]
-	        });
-	      }
+	      this.setState({
+	        obj: obj,
+	        question: obj.prompt,
+	        reply: obj.reply,
+	        choice1: choice1,
+	        choice2: choice2,
+	        currentCharacter: images[obj.img]
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -359,14 +358,26 @@
 	            React.createElement(
 	              'div',
 	              { className: 'scores' },
-	              'GPA: ',
-	              Math.round(this.state.gpa * 100) / 10000,
-	              ' Social Life: ',
-	              this.state.happiness,
+	              React.createElement(
+	                'span',
+	                { className: 'score1' },
+	                'GPA: ',
+	                Math.round(this.state.gpa * 100) / 10000
+	              ),
+	              React.createElement(
+	                'span',
+	                { className: 'score2' },
+	                ' # Of Friends: ',
+	                this.state.happiness
+	              ),
 	              ' ',
 	              React.createElement('br', null),
-	              'Month: ',
-	              months[this.state.currentMonthIndex]
+	              React.createElement(
+	                'div',
+	                null,
+	                'Month: ',
+	                months[this.state.currentMonthIndex]
+	              )
 	            ),
 	            startImage,
 	            startText,
@@ -22480,7 +22491,7 @@
 	    img: 'roySales',
 	    choices: [{
 	      reply: 'Cave in',
-	      val: [-80, 10],
+	      val: [20, -10],
 	      consequence: 'You ran out of money.',
 	      prompt: "You found a golden ticket in Gateman's textbook!",
 	      img: 'roySales',
@@ -22532,6 +22543,28 @@
 	    }, {
 	      reply: "No one because you have no friends",
 	      val: [0, -10]
+	    }]
+	  },
+	  9: {
+	    prompt: "You are running late for class but you catch a dying squirrel in the corner of your eye",
+	    img: 'assistant',
+	    choices: [{
+	      reply: "Survival of the fittest and walk away",
+	      val: [0, -30]
+	    }, {
+	      reply: "Take it out of its misery",
+	      val: [-20, -50]
+	    }]
+	  },
+	  10: {
+	    prompt: "Everybody is trying to recruit you to their sorority and fraternities",
+	    img: 'roySales',
+	    choices: [{
+	      reply: 'Alpha Phi here I come',
+	      val: [10, 30]
+	    }, {
+	      reply: 'Are there any LAN parties?',
+	      val: [20, 20]
 	    }]
 	  }
 	};
