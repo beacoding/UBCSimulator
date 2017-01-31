@@ -364,8 +364,17 @@
 	        null,
 	        React.createElement(
 	          'div',
-	          { className: 'subtitle' },
-	          ' powered by Slacknotes '
+	          { className: 'header' },
+	          React.createElement(
+	            'div',
+	            { className: 'title' },
+	            ' UBC Simulator '
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'subtitle' },
+	            ' powered by Slacknotes '
+	          )
 	        ),
 	        React.createElement(
 	          'div',
@@ -22413,6 +22422,8 @@
 	
 	var buildTree = function buildTree(json) {
 	  var res = [];
+	  var leftIndex = -1;
+	  var rightIndex = -1;
 	  var recurseThrough = function recurseThrough(node) {
 	    if (!node) {
 	      return;

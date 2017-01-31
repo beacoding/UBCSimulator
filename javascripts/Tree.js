@@ -11,6 +11,8 @@ var Node = function(prompt, reply, val, consequence, img, immediate) {
 
 var buildTree = function(json) {
   var res = [];
+  var leftIndex = -1;
+  var rightIndex = -1;
   var recurseThrough = function(node) {
     if (!node) {
       return;
@@ -19,7 +21,6 @@ var buildTree = function(json) {
     if (!node.choices) {
       return newNode;
     }
-
 
     newNode.left = !!node ? recurseThrough(node.choices[0]) : null;
     newNode.right = !!node ? recurseThrough(node.choices[1]) : null;

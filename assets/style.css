@@ -62,7 +62,7 @@ canvas {
 }
 
 .align-items {
-	height: 500px;
+	height: 450px;
 	width: 315px;
 	background-color: rgba(85, 79, 86, 0.95);
 	padding: 20px;
@@ -73,7 +73,7 @@ canvas {
 	background-color: #f9f9f9;
 	color: black;
 	outline: #968383 solid 5px;
-	padding-bottom: 10px;
+	padding-bottom: 5px;
 	min-height: 280px;
 }
 
@@ -82,15 +82,32 @@ canvas {
 }
 
 .title {
-	position: fixed;
-	font-size: 1em;
-	padding-top: 5px;
+	font-size: 3em;
+	position: relative;
 }
 
+.header {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 10%;
+	margin-left: auto;
+ 	margin-right: auto;
+}
+
+@media only screen and (max-width: 800px) {
+    .subtitle {
+        display: none;
+    }
+
+    .title {
+    	display: none;
+    }
+}
+
+
 .subtitle {
-	position: fixed;
-	padding-top: 20px;
-	padding-left: 20px;
+	position: relative;
 }
 .container img {
 	padding-top: 30px;
@@ -115,31 +132,8 @@ button {
   margin: 10px;
   font-family: 'VT323', monospace;
 }
-.score1 {
-	float: left;
-}
 
-.thing-enter {
-  opacity: 0.01;
-  transition: opacity 1s ease-in;
-}
 
-.thing-enter.thing-enter-active {
-  opacity: 1;
-}
-
-.thing-leave {
-  opacity: 1;
-  transition: opacity 1s ease-in;
-}
-
-.thing-leave.thing-leave-active {
-  opacity: 0.01;
-}
-
-.score2 {
-	float: right;
-}
 button:hover {background-color: rgba(102, 100, 103, 0.95)}
 
 button:active {

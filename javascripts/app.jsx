@@ -225,11 +225,13 @@ class App extends React.Component {
 
     return (
       <div>
-      <div className="subtitle"> powered by Slacknotes </div>
+      <div className="header">
+        <div className="title"> UBC Simulator </div>
+        <div className="subtitle"> powered by Slacknotes </div>
+      </div>
         <div className="container">
           <div className="align-items">
               <div className="scores"><span className="score1">GPA: {Math.round(this.state.gpa * 100) / 10000}</span><span className="score2"> # Of Friends: {this.state.happiness}</span> <br/><div>Month: {months[this.state.currentMonthIndex]}</div></div>
-      
               <div className="inner-container">
               {startImage}
               {currentCharacter}
