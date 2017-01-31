@@ -90,8 +90,14 @@ module.exports = {
             val: [50, 20]
           },{
             reply: 'Quit School',
-            val: [-1000, -1000],
-            consequence: 'You dropped out of school.'
+            val: [-100, -20],
+            consequence: 'You dropped out of school.',
+            prompt: ["You founded a successful company"],
+            img: 'roySales',
+            choices: [{
+              reply: 'Awesome',
+              val: [0, 100]
+            }]
           }]
         },
         {
@@ -131,10 +137,12 @@ module.exports = {
           }]
         }, {
           reply: "School is lyf",
+          consequence: "You have no more friends",
           val: [50, -20]
         }]
       }, {
         reply: "No one because you have no friends",
+        consequence: "You have no more friends",
         val: [0, -10],
       }]
     },
@@ -161,9 +169,11 @@ module.exports = {
         img: 'assistant',
         choices: [{
           reply: "Wasn't me",
+          consequence: "The mass mob murdered you",
           val: [-10, -40]
         }, {
           reply: "Write a facebook post and apologize",
+          consequence: "You spent too much time writing your facebook post and ignored your grades",
           val: [-10, 5]
         }
         ]
@@ -187,6 +197,7 @@ module.exports = {
       choices:
       [{
         reply: 'Waste my time 2017',
+        consequence: "You wasted your time now 2017 is over.",
         val: [-10, -5]
       }]
     },
@@ -196,9 +207,11 @@ module.exports = {
       choices:
       [{
         reply: 'Let me in coach',
+        consequence: "You attempted to do a double back flip and spent the school year in the hospital",
         val: [15, -20]
       }, {
         reply: 'Umm...I need to...be...somewhere...bye.',
+        consequence: "Coach pulled some strings to get you kicked out of school",
         val: [0,-10]
       }] 
     },
@@ -207,6 +220,7 @@ module.exports = {
       img: 'rapper02',
       choices: [{
         reply: 'Chase them around with a baseball bat',
+        consequence: "Your best friend retaliates and murders you",
         val: [-10, 10],
       }, {
         reply: 'Join them',
@@ -223,7 +237,8 @@ module.exports = {
         prompt: 'Everybody did too well in the class so your prof scaled down',
         choices: [{
           reply: ':(',
-          val: [-35, 0]
+          val: [-35, 0],
+          consequence: 'You failed your midterm and got kicked out of school'
         }]
       }]
     },
@@ -238,7 +253,8 @@ module.exports = {
         img: 'rapper02',
         choices: [{
           reply: 'Oh...',
-          val: [0, -20]
+          val: [0, -20],
+          consequence: 'Your lab partner broke your heart'
         }]
       },{
         reply: 'I think we should do our lab',
@@ -250,7 +266,8 @@ module.exports = {
           val: [0, 20]
         }, {
           reply: 'I think we should do our lab',
-          val: [20, -10]
+          val: [20, -10],
+          consequence: "Your lab partner started a rumor that you're a Trump supporter"
         }]
       }]
     }
