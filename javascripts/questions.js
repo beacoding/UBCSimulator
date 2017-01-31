@@ -357,6 +357,7 @@ module.exports = {
         reply: 'FIPR 131 – Intro to Screen Acting',
         val: [10, 5],
         prompt: "You got offered a role to be an extrafor Fifty Shades of Grey",
+        img: 'tanya',
         choices: [{
           reply: "Ditch all your friends because you're a superstar now",
           val: [-10, -30]
