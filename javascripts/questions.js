@@ -145,9 +145,28 @@ module.exports = {
       [{
         reply: "Survival of the fittest and walk away",
         val: [0, -30],
+        prompt: "Turned out that squirrel survived and attacks you for abandoning it",
+        img: 'assistant',
+        choices: [{
+          reply: "Beg for forgiveness",
+          val: [0, 5]
+        }, {
+          reply: "Kick it",
+          val: [0, 10]
+        }]
       }, {
         reply: "Take it out of its misery",
-        val: [-20, -50],
+        val: [-20, -20],
+        prompt: "The Ubyssey ran an article branding you a squirrel murderer",
+        img: 'assistant',
+        choices: [{
+          reply: "Wasn't me",
+          val: [-10, -40]
+        }, {
+          reply: "Write a facebook post and apologize",
+          val: [-10, 5]
+        }
+        ]
       }]
     },
     10: {
@@ -156,10 +175,10 @@ module.exports = {
       choices:
       [{
         reply: 'Alpha Phi is for me',
-        val: [10, 30]
+        val: [10, 30],
       }, {
         reply: 'Are there any LAN parties?',
-        val: [20, 20]
+        val: [20, 20],
       }]
     },
     11: {
@@ -182,5 +201,57 @@ module.exports = {
         reply: 'Umm...I need to...be...somewhere...bye.',
         val: [0,-10]
       }] 
+    },
+    13: {
+      prompt: "You walk in on your best friend and partner getting it on",
+      img: 'rapper02',
+      choices: [{
+        reply: 'Chase them around with a baseball bat',
+        val: [-10, 10],
+      }, {
+        reply: 'Join them',
+        val: [10, 20],
+      }]
+    },
+    14: {
+      prompt: "Your prof cancelled your midterm and gave everybody bonus marks",
+      img: 'backenddev01',
+      choices: [{
+        reply: 'Woooaow',
+        val: [40, 0],
+        img: 'backenddev01',
+        prompt: 'Everybody did too well in the class so your prof scaled down',
+        choices: [{
+          reply: ':(',
+          val: [-35, 0]
+        }]
+      }]
+    },
+    15: {
+      prompt: "Your lab partner is cute",
+      img: 'rapper02',
+      immediate: true,
+      choices: [{
+        reply: 'I think we should do',
+        val: [0, 0],
+        prompt: 'Your lab partner thinks you should just stay friends',
+        img: 'rapper02',
+        choices: [{
+          reply: 'Oh...',
+          val: [0, -20]
+        }]
+      },{
+        reply: 'I think we should do our lab',
+        val: [10, -5],
+        prompt: 'Your lab partner wants to take it to the next level',
+        img: 'rapper02',
+        choices: [{
+          reply: 'I think we should do',
+          val: [0, 20]
+        }, {
+          reply: 'I think we should do our lab',
+          val: [20, -10]
+        }]
+      }]
     }
 }

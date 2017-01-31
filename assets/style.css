@@ -24,6 +24,7 @@ canvas {
     height: 100%;
     width: 100%;
 }
+
 #gameArea {
     margin: 0 auto;
     margin: 0 auto; 
@@ -61,11 +62,23 @@ canvas {
 }
 
 .align-items {
-	height: 450px;
-	width: 300px;
+	height: 500px;
+	width: 315px;
 	background-color: rgba(85, 79, 86, 0.95);
 	padding: 20px;
 	box-shadow: 5px 5px 1px rgba(85, 79, 86, 1);
+}
+
+.inner-container {
+	background-color: #f9f9f9;
+	color: black;
+	outline: #968383 solid 5px;
+	padding-bottom: 10px;
+	min-height: 280px;
+}
+
+.bottom {
+	margin-top: 10px;
 }
 
 .title {
@@ -81,14 +94,14 @@ canvas {
 }
 .container img {
 	padding-top: 30px;
-	padding-bottom: 30px;
+	padding-bottom: 15px;
 }
 
 button {
   display: inline-block;
   padding: 5px 15px;
-  min-width: 30px;
-  display: inline-block;
+  min-width: 50px;
+  -moz-outline: 0 none;
   font-size: 18px;
   cursor: pointer;
   text-align: center;
@@ -97,13 +110,31 @@ button {
   color: #fff;
   background-color: grey;
   border: none;
-  border-radius: 15px;
-  box-shadow: 0 5px #999;
+  border-radius: 5px;
+  box-shadow: 2px 2px #999;
   margin: 10px;
   font-family: 'VT323', monospace;
 }
 .score1 {
 	float: left;
+}
+
+.thing-enter {
+  opacity: 0.01;
+  transition: opacity 1s ease-in;
+}
+
+.thing-enter.thing-enter-active {
+  opacity: 1;
+}
+
+.thing-leave {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+.thing-leave.thing-leave-active {
+  opacity: 0.01;
 }
 
 .score2 {

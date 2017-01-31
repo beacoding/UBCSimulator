@@ -1,10 +1,11 @@
-var Node = function(prompt, reply, val, consequence, img) {
+var Node = function(prompt, reply, val, consequence, img, immediate) {
   this.prompt = prompt;
   this.reply = reply;
   this.val = val;
   this.consequence = consequence;
   this.left = null;
   this.right = null;
+  this.immediate = immediate;
   this.img = img;
 }
 
@@ -14,7 +15,7 @@ var buildTree = function(json) {
     if (!node) {
       return;
     }
-    var newNode = new Node(node.prompt, node.reply, node.val, node.consequence, node.img);
+    var newNode = new Node(node.prompt, node.reply, node.val, node.consequence, node.img, node.immediate);
     if (!node.choices) {
       return newNode;
     }

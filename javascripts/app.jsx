@@ -2,6 +2,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const buildTree = require('./Tree.js');
 const questions = require('./questions.js');
+const ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 const images = {
   sky: 'assets/title-screen-background.png',
@@ -41,6 +42,7 @@ const blankSlate = {
   questionsSoFar: 0,
   currentMonthIndex: 0,
   finished: false,
+  value: 0,
 
   currentCharacter: null,
   question: null,
@@ -49,7 +51,8 @@ const blankSlate = {
   index: 0,
   obj: null,
   reply: null,
-  win: false
+  win: false,
+  immediate: -1
 }
 
 class App extends React.Component {
@@ -60,7 +63,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.setState({
-      questionsPerMonth: Math.floor(Object.keys(this.state.decisionSet).length / 9)
+      questionsPerMonth: 4
     });
   }
 
@@ -68,7 +71,7 @@ class App extends React.Component {
     this.setState(blankSlate);
     let decisionSet = buildTree(questions);
     this.setState({
-      questionsPerMonth: Math.floor(Object.keys(decisionSet).length / 9),
+      questionsPerMonth: 4,
       decisionSet: decisionSet
     });
   }
@@ -123,7 +126,7 @@ class App extends React.Component {
       this.setState({
         gpa: gpa,
         happiness: happiness,
-        consequence: consequence
+        consequence: consequence,
       });
 
       if (this.state.decisionSet[this.state.index].prompt === undefined) {
@@ -137,8 +140,8 @@ class App extends React.Component {
       let questionsSoFar = this.state.questionsSoFar + 1;
 
       if (this.state.currentMonthIndex + 1 > 8 || !decisionSet.length) {
-        let win = this.state.gpa > 300 ? true : false;
-        let character = this.state.gpa > 300 ? images['victory'] : images['defeatDefault'];
+        let win = gpa > 300 ? true : false;
+        let character = gpa > 300 ? images['victory'] : images['defeatDefault'];
         this.setState({
           choice1: null,
           choice2: null,
@@ -170,6 +173,12 @@ class App extends React.Component {
   initializeHandler(e) {
     var context = this;
     let index = this.state.initialized ? Math.floor(Math.random() * context.state.decisionSet.length ) : 0;
+
+    if (this.state.immediate !== -1) {
+      console.log('in here');
+      index = this.state.index;
+    }
+
     if (!this.state.initialized) {
       this.setState({
         index: index,
@@ -181,8 +190,14 @@ class App extends React.Component {
       });
     }
     let obj = this.state.decisionSet[index];
+    console.log(obj);
     let choice1 = obj.left ? obj.left.reply : null;
     let choice2 = obj.right ? obj.right.reply : null;
+    let immediate = obj.immediate ? index : -1;
+
+    if (obj.immediate) {
+      console.log(obj, 'in object immediate');
+    }
 
     this.setState({
       obj: obj,
@@ -190,7 +205,8 @@ class App extends React.Component {
       reply: obj.reply,
       choice1: choice1,
       choice2: choice2,
-      currentCharacter: images[obj.img]
+      currentCharacter: images[obj.img],
+      immediate: immediate
     });
   }
   
@@ -212,18 +228,23 @@ class App extends React.Component {
       <div className="subtitle"> powered by Slacknotes </div>
         <div className="container">
           <div className="align-items">
-            <div className="scores"><span className="score1">GPA: {Math.round(this.state.gpa * 100) / 10000}</span><span className="score2"> # Of Friends: {this.state.happiness}</span> <br/><div>Month: {months[this.state.currentMonthIndex]}</div></div>
-            {startImage}
-            {startText}
-            {startButton}
-            {question}
-            {currentCharacter}
-            {choice1}
-            {choice2}
-            {consequence}
-            {win}
-            {finished}
-          </div>
+              <div className="scores"><span className="score1">GPA: {Math.round(this.state.gpa * 100) / 10000}</span><span className="score2"> # Of Friends: {this.state.happiness}</span> <br/><div>Month: {months[this.state.currentMonthIndex]}</div></div>
+      
+              <div className="inner-container">
+              {startImage}
+              {currentCharacter}
+              {startText}
+              {question}
+              {consequence}
+              {win}
+              </div>
+              <div className="bottom">
+                {startButton}
+                {choice1}
+                {choice2}
+                {finished}
+              </div>
+            </div>
         </div>
       </div>
       );
