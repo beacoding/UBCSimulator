@@ -2,7 +2,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const buildTree = require('./Tree.js');
 const questions = require('./questions.js');
-const ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 const images = {
   sky: 'assets/title-screen-background.png',
