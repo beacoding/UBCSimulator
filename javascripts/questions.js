@@ -11,12 +11,12 @@ module.exports = {
       }]
     },
     1: {
-      prompt: 'Should you get health insurance?',
+      prompt: "Should you get health insurance? You'll have to miss school for 5 days to pay for it",
       img: 'roySales',
       choices: [{
         reply: 'Yes',
-        val: [30, 10],
-        consequence: 'You ran out of money cause insurance cost too much'
+        val: [-15, 10],
+        consequence: 'You ran out of money cause insurance cost too much and you missed school'
       }, {
         reply: 'No',
         val: [0, -50],
