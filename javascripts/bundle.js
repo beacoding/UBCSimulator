@@ -75,8 +75,8 @@
 	};
 	
 	var blankSlate = {
-	  gpa: 0,
-	  happiness: 0,
+	  gpa: 250,
+	  happiness: 50,
 	
 	  initialized: false,
 	  decisionSet: buildTree(questions),
@@ -306,10 +306,11 @@
 	          ' Start Game '
 	        )
 	      ) : null;
+	
 	      var startText = !this.state.initialized ? React.createElement(
 	        'div',
 	        null,
-	        ' You\'re goal is to get through the year with a 4.0 GPA and outstanding popularity! ',
+	        ' You\'re goal is to get through the year with a 4.0 GPA and still have friends at the end of it! ',
 	        React.createElement('br', null),
 	        ' '
 	      ) : null;
@@ -331,6 +332,7 @@
 	              ' Social Life: ',
 	              this.state.happiness
 	            ),
+	            startText,
 	            startButton,
 	            question,
 	            currentCharacter,
@@ -22369,14 +22371,14 @@
 	
 	module.exports = {
 	  0: {
-	    prompt: 'You just started the school year with a perfect 4.0 GPA',
+	    prompt: 'You just started the school year with a 2.50 GPA',
 	    img: 'tanya',
 	    choices: [{
 	      reply: 'Awesome',
-	      val: [250, 50]
+	      val: [0, 0]
 	    }, {
 	      reply: 'Sweet',
-	      val: [250, 50]
+	      val: [0, 0]
 	    }]
 	  },
 	  1: {
@@ -22459,7 +22461,7 @@
 	    }]
 	  },
 	  7: {
-	    prompt: 'A Sauder student comes by to pitch you an idea for a new startup for a ',
+	    prompt: 'A Sauder student comes by to pitch you an idea for a new startup that is like yelp but for dating',
 	    img: 'rapper02',
 	    choices: [{
 	      reply: "Keep on walking and pretend you didn't hear",
@@ -22467,6 +22469,32 @@
 	    }, {
 	      reply: 'When do we start?',
 	      val: [-20, -10]
+	    }]
+	  },
+	  8: {
+	    prompt: "You have a study break and you want to go out for lunch. Who do you ask?",
+	    img: 'rapper02',
+	    choices: [{
+	      reply: "The hottest person in your class",
+	      val: [0, 40],
+	      img: 'designer01',
+	      prompt: 'The hottest person in your class accepted your date',
+	      choices: [{
+	        reply: "Skip studying for your midterm",
+	        val: [0, 50],
+	        img: 'designer01',
+	        prompt: "You failed your midterm",
+	        choices: [{
+	          reply: "Cry",
+	          val: [-50, -10]
+	        }]
+	      }, {
+	        reply: "School is lyf",
+	        val: [50, -20]
+	      }]
+	    }, {
+	      reply: "No one because you have no friends",
+	      val: [0, -10]
 	    }]
 	  }
 	};

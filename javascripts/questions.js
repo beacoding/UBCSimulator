@@ -100,7 +100,7 @@ module.exports = {
         }]
     },
     7: {
-      prompt: 'A Sauder student comes by to pitch you an idea for a new startup for a ',
+      prompt: 'A Sauder student comes by to pitch you an idea for a new startup that is like yelp but for dating',
       img: 'rapper02',
       choices:
       [{
@@ -109,6 +109,33 @@ module.exports = {
       }, {
         reply: 'When do we start?',
         val: [-20, -10]
+      }]
+    },
+    8: {
+      prompt: "You have a study break and you want to go out for lunch. Who do you ask?",
+      img: 'rapper02',
+      choices:
+      [{
+        reply: "The hottest person in your class",
+        val: [0, 40],
+        img: 'designer01',
+        prompt: 'The hottest person in your class accepted your date',
+        choices: [{
+          reply: "Skip studying for your midterm",
+          val: [0, 50],
+          img: 'designer01',
+          prompt: "You failed your midterm",
+          choices: [{
+            reply: "Cry",
+            val: [-50, -10]
+          }]
+        }, {
+          reply: "School is lyf",
+          val: [50, -20]
+        }]
+      }, {
+        reply: "No one because you have no friends",
+        val: [0, -10],
       }]
     }
 }
