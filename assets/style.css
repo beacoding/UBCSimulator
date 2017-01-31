@@ -45,6 +45,7 @@ canvas {
 #app > [data-reactroot] {
 	height: 100%;
 	width: 100%;
+	text-align: center;
 }
 
 .container {
@@ -55,6 +56,8 @@ canvas {
 	justify-content: center;
 	color: white;
 	text-align: center;
+	padding: 0;
+	margin: 0;
 }
 
 .align-items {
@@ -62,8 +65,20 @@ canvas {
 	width: 300px;
 	background-color: rgba(85, 79, 86, 0.95);
 	padding: 20px;
+	box-shadow: 5px 5px 1px rgba(85, 79, 86, 1);
 }
 
+.title {
+	position: fixed;
+	font-size: 1em;
+	padding-top: 5px;
+}
+
+.subtitle {
+	position: fixed;
+	padding-top: 20px;
+	padding-left: 20px;
+}
 .container img {
 	padding-top: 30px;
 	padding-bottom: 30px;

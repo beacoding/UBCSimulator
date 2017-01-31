@@ -15,7 +15,22 @@ const images = {
   victory: 'assets/victory-01.png'
 }
 
-var blankSlate = {
+const months = {
+  0: 'January',
+  1: 'February',
+  2: 'March',
+  3: 'April',
+  4: 'May',
+  5: 'June',
+  6: 'July',
+  7: 'August',
+  8: 'September',
+  9: 'October',
+  10: 'November',
+  11: 'December'
+}
+
+const blankSlate = {
   gpa: 250,
   happiness: 50,
 
@@ -149,14 +164,17 @@ class App extends React.Component {
       });
     }
 
-    if (!this.state.decisionSet.length) {
+    if (!this.state.decisionSet.length || this.state.currentMonthIndex > 11) {
+      let win = this.state.gpa > 300 ? true : false;
+      let character = this.state.gpa > 300 ? images['victory'] : images['defeatDefault'];
       this.setState({
         choice1: null,
         choice2: null,
         finished: true,
-        win: true,
+        win: win,
         question: null,
-        character: images['victory']
+        currentCharacter: character,
+        consequence: "You failed to achieve at least a 3.0 GPA during the school year"
       });
     } else {
       let obj = this.state.decisionSet[index];
@@ -184,14 +202,16 @@ class App extends React.Component {
     let consequence = this.state.consequence && this.state.finished && !this.state.win ? <div> {this.state.consequence} </div> : null;
     let win = this.state.finished && this.state.win ? <div> You Won! </div> : null;
     let startButton = !this.state.initialized ? <div><button onClick = {this.initializeHandler.bind(this)}> Start Game </button></div> : null;
-
-    let startText = !this.state.initialized ? <div> You're goal is to get through the year with a 4.0 GPA and still have friends at the end of it! <br/> </div> : null;
+    let startImage = !this.state.initialized ? <div><img className="current-character" src={images['victory']}></img><p>UBC Simulator</p></div> : null;
+    let startText = !this.state.initialized ? <div> You're goal is to get through the year with at least a 3.0 GPA and still have friends at the end of it! <br/> </div> : null;
 
     return (
       <div>
+      <div className="subtitle"> powered by Slacknotes </div>
         <div className="container">
           <div className="align-items">
-            <div className="scores">GPA: {this.state.gpa} Social Life: {this.state.happiness}</div>
+            <div className="scores">GPA: {Math.round(this.state.gpa * 100) / 10000} Social Life: {this.state.happiness} <br/>Month: {months[this.state.currentMonthIndex]}</div>
+            {startImage}
             {startText}
             {startButton}
             {question}

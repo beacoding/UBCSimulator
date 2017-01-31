@@ -74,6 +74,21 @@
 	  victory: 'assets/victory-01.png'
 	};
 	
+	var months = {
+	  0: 'January',
+	  1: 'February',
+	  2: 'March',
+	  3: 'April',
+	  4: 'May',
+	  5: 'June',
+	  6: 'July',
+	  7: 'August',
+	  8: 'September',
+	  9: 'October',
+	  10: 'November',
+	  11: 'December'
+	};
+	
 	var blankSlate = {
 	  gpa: 250,
 	  happiness: 50,
@@ -219,14 +234,17 @@
 	        });
 	      }
 	
-	      if (!this.state.decisionSet.length) {
+	      if (!this.state.decisionSet.length || this.state.currentMonthIndex > 11) {
+	        var win = this.state.gpa > 300 ? true : false;
+	        var character = this.state.gpa > 300 ? images['victory'] : images['defeatDefault'];
 	        this.setState({
 	          choice1: null,
 	          choice2: null,
 	          finished: true,
-	          win: true,
+	          win: win,
 	          question: null,
-	          character: images['victory']
+	          currentCharacter: character,
+	          consequence: "You failed to achieve at least a 3.0 GPA during the school year"
 	        });
 	      } else {
 	        var obj = this.state.decisionSet[index];
@@ -306,11 +324,20 @@
 	          ' Start Game '
 	        )
 	      ) : null;
-	
+	      var startImage = !this.state.initialized ? React.createElement(
+	        'div',
+	        null,
+	        React.createElement('img', { className: 'current-character', src: images['victory'] }),
+	        React.createElement(
+	          'p',
+	          null,
+	          'UBC Simulator'
+	        )
+	      ) : null;
 	      var startText = !this.state.initialized ? React.createElement(
 	        'div',
 	        null,
-	        ' You\'re goal is to get through the year with a 4.0 GPA and still have friends at the end of it! ',
+	        ' You\'re goal is to get through the year with at least a 3.0 GPA and still have friends at the end of it! ',
 	        React.createElement('br', null),
 	        ' '
 	      ) : null;
@@ -318,6 +345,11 @@
 	      return React.createElement(
 	        'div',
 	        null,
+	        React.createElement(
+	          'div',
+	          { className: 'subtitle' },
+	          ' powered by Slacknotes '
+	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'container' },
@@ -328,10 +360,15 @@
 	              'div',
 	              { className: 'scores' },
 	              'GPA: ',
-	              this.state.gpa,
+	              Math.round(this.state.gpa * 100) / 10000,
 	              ' Social Life: ',
-	              this.state.happiness
+	              this.state.happiness,
+	              ' ',
+	              React.createElement('br', null),
+	              'Month: ',
+	              months[this.state.currentMonthIndex]
 	            ),
+	            startImage,
 	            startText,
 	            startButton,
 	            question,
