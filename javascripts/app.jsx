@@ -207,7 +207,7 @@ class App extends React.Component {
       <div className="subtitle"> powered by Slacknotes </div>
         <div className="container">
           <div className="align-items">
-            <div className="scores">GPA: {Math.round(this.state.gpa * 100) / 10000} Social Life: {this.state.happiness} <br/>Month: {months[this.state.currentMonthIndex]}</div>
+            <div className="scores">GPA: {Math.round(this.state.gpa * 100) / 10000} # Of Friends: {this.state.happiness} <br/>Month: {months[this.state.currentMonthIndex]}</div>
             {startImage}
             {startText}
             {startButton}
