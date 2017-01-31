@@ -11,9 +11,11 @@ const images = {
   designer02: 'assets/designer-02.png',
   backenddev01: 'assets/backend-dev-01.png',
   rapper02: 'assets/rapper-02.png',
+  rapper03: 'assets/rapper-03.png',
   defeatDefault: 'assets/defeat-default.png',
   victory: 'assets/victory-01.png',
-  assistant: 'assets/assistant.png'
+  assistant: 'assets/assistant.png',
+  productManager: 'assets/product-manager.png'
 }
 
 const months = {

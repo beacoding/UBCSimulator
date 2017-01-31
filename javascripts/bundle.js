@@ -70,9 +70,11 @@
 	  designer02: 'assets/designer-02.png',
 	  backenddev01: 'assets/backend-dev-01.png',
 	  rapper02: 'assets/rapper-02.png',
+	  rapper03: 'assets/rapper-03.png',
 	  defeatDefault: 'assets/defeat-default.png',
 	  victory: 'assets/victory-01.png',
-	  assistant: 'assets/assistant.png'
+	  assistant: 'assets/assistant.png',
+	  productManager: 'assets/product-manager.png'
 	};
 	
 	var months = {
@@ -22560,11 +22562,30 @@
 	    prompt: "Everybody is trying to recruit you to their sorority and fraternities",
 	    img: 'roySales',
 	    choices: [{
-	      reply: 'Alpha Phi here I come',
+	      reply: 'Alpha Phi is for me',
 	      val: [10, 30]
 	    }, {
 	      reply: 'Are there any LAN parties?',
 	      val: [20, 20]
+	    }]
+	  },
+	  11: {
+	    prompt: "You decide to line up at Tim Hortons at 3:50 PM",
+	    img: 'rapper03',
+	    choices: [{
+	      reply: 'Waste my time 2017',
+	      val: [-10, -5]
+	    }]
+	  },
+	  12: {
+	    prompt: "The UBC mascot resigned and we desperately need one for the pep rally tonight",
+	    img: 'productManager',
+	    choices: [{
+	      reply: 'Let me in coach',
+	      val: [15, -20]
+	    }, {
+	      reply: 'Umm...I need to...be...somewhere...bye.',
+	      val: [0, -10]
 	    }]
 	  }
 	};
