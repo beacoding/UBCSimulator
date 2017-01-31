@@ -16,18 +16,15 @@ const images = {
 }
 
 const months = {
-  0: 'January',
-  1: 'February',
-  2: 'March',
-  3: 'April',
-  4: 'May',
-  5: 'June',
-  6: 'July',
-  7: 'August',
-  8: 'September',
-  9: 'October',
-  10: 'November',
-  11: 'December'
+  0: 'September',
+  1: 'October',
+  2: 'November',
+  3: 'December',
+  4: 'January',
+  5: 'February',
+  6: 'March',
+  7: 'April',
+  8: 'May',
 }
 
 const blankSlate = {
