@@ -14,6 +14,9 @@ Side project to avoid studying for my CPSC 304 midterm.
 2. npm install
 3. go run main.go
 
+##How It Works
+UBC Simulator is a pretty simple game that uses a set of decision trees that it will randomly select. Once a choice is made, it begins to walk down that path and prunes the path not taken.
+
 ##Built With
 * [Go](https://golang.org/) - Server
 * [React] (https://facebook.github.io/react/) - Front End
