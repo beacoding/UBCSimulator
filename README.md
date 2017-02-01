@@ -20,3 +20,5 @@ UBC Simulator is a pretty simple game that uses a set of decision trees that it 
 ##Built With
 * [Go](https://golang.org/) - Server
 * [React] (https://facebook.github.io/react/) - Front End
+* [Pixel Art Maker] (http://pixelartmaker.com/) - To make the background
+* [Toggl] (https://toggl.com/startup-simulator/) - For inspiration and to get the artwork/characters
