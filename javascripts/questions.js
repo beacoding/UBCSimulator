@@ -346,7 +346,7 @@ module.exports = {
       immediate: true,
       choices: [{
         reply: 'FNH 330 - Intro to Wine Science',
-        val: [10, 5],
+        val: [20, 5],
         prompt: 'You got totally wasted',
         img: 'cfo',
         choices: [{
@@ -355,7 +355,7 @@ module.exports = {
         }]
       }, {
         reply: 'FIPR 131 – Intro to Screen Acting',
-        val: [10, 5],
+        val: [20, 5],
         prompt: "You got offered a role to be an extrafor Fifty Shades of Grey",
         img: 'tanya',
         choices: [{
@@ -366,5 +366,8 @@ module.exports = {
           val: [50, 0]
         }]
       }]
+    },
+    22: {
+      prompt: 
     }
 }

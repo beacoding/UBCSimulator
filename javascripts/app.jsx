@@ -1,9 +1,9 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const buildTree = require('./Tree.js');
-const questions = require('./questions.js');
+var React = require('react');
+var ReactDOM = require('react-dom');
+var buildTree = require('./Tree.js');
+var questions = require('./questions.js');
 
-const images = {
+var images = {
   sky: 'assets/title-screen-background.png',
   tanya: 'assets/tanya-frontend.png', 
   roySales: 'assets/roy-sales.png',
@@ -19,7 +19,7 @@ const images = {
   cfo: 'assets/cfo.png'
 }
 
-const months = {
+var months = {
   0: 'September',
   1: 'October',
   2: 'November',
@@ -31,7 +31,7 @@ const months = {
   8: 'May',
 }
 
-const blankSlate = {
+var blankSlate = {
   gpa: 250,
   happiness: 50,
 
@@ -69,7 +69,7 @@ class App extends React.Component {
 
   restart() {
     this.setState(blankSlate);
-    let decisionSet = buildTree(questions);
+    var decisionSet = buildTree(questions);
     this.setState({
       questionsPerMonth: 4,
       decisionSet: decisionSet
@@ -93,9 +93,9 @@ class App extends React.Component {
   }
 
   choiceHandler(e) {
-    let response = e.target.value;
-    let decisionSet = this.state.decisionSet;
-    let index = this.state.index;
+    var response = e.target.value;
+    var decisionSet = this.state.decisionSet;
+    var index = this.state.index;
 
     if (response === this.state.choice1) {
       decisionSet[index] = this.state.obj.left;
@@ -107,9 +107,9 @@ class App extends React.Component {
       decisionSet: decisionSet
     });
 
-    let gpa = this.setGPA(this.state.decisionSet[this.state.index].val[0]);
-    let happiness =  this.setHappiness(this.state.decisionSet[this.state.index].val[1]);
-    let consequence = this.state.decisionSet[this.state.index].consequence || this.state.consequence;
+    var gpa = this.setGPA(this.state.decisionSet[this.state.index].val[0]);
+    var happiness =  this.setHappiness(this.state.decisionSet[this.state.index].val[1]);
+    var consequence = this.state.decisionSet[this.state.index].consequence || this.state.consequence;
 
     if (gpa < 0 || happiness < 0) {
       this.setState({
@@ -137,11 +137,11 @@ class App extends React.Component {
         });
       }
 
-      let questionsSoFar = this.state.questionsSoFar + 1;
+      var questionsSoFar = this.state.questionsSoFar + 1;
 
       if (this.state.currentMonthIndex + 1 > 8 || !decisionSet.length) {
-        let win = gpa > 300 ? true : false;
-        let character = gpa > 300 ? images['victory'] : images['defeatDefault'];
+        var win = gpa > 300 ? true : false;
+        var character = gpa > 300 ? images['victory'] : images['defeatDefault'];
         this.setState({
           choice1: null,
           choice2: null,
@@ -172,7 +172,7 @@ class App extends React.Component {
 
   initializeHandler(e) {
     var context = this;
-    let index = this.state.initialized ? Math.floor(Math.random() * context.state.decisionSet.length ) : 0;
+    var index = this.state.initialized ? Math.floor(Math.random() * context.state.decisionSet.length ) : 0;
 
     if (this.state.immediate !== -1) {
       console.log('in here');
@@ -189,11 +189,11 @@ class App extends React.Component {
         index: index
       });
     }
-    let obj = this.state.decisionSet[index];
+    var obj = this.state.decisionSet[index];
     console.log(obj);
-    let choice1 = obj.left ? obj.left.reply : null;
-    let choice2 = obj.right ? obj.right.reply : null;
-    let immediate = obj.immediate ? index : -1;
+    var choice1 = obj.left ? obj.left.reply : null;
+    var choice2 = obj.right ? obj.right.reply : null;
+    var immediate = obj.immediate ? index : -1;
 
     if (obj.immediate) {
       console.log(obj, 'in object immediate');
@@ -212,16 +212,16 @@ class App extends React.Component {
   
 
   render() {
-    let question = this.state.question ? <div> {this.state.question} </div> : null;
-    let choice1 = this.state.choice1 ? <div><button onClick={this.choiceHandler.bind(this)} value={this.state.choice1}>{this.state.choice1}</button></div> : null;
-    let choice2 = this.state.choice2 ? <div><button onClick={this.choiceHandler.bind(this)} value={this.state.choice2}>{this.state.choice2}</button></div> : null;
-    let currentCharacter = this.state.currentCharacter ? <div><img className="current-character" src={this.state.currentCharacter}></img></div> : null;
-    let finished = this.state.finished ? <div><button onClick={this.restart.bind(this)}> Restart</button></div> : null;
-    let consequence = this.state.consequence && this.state.finished && !this.state.win ? <div> {this.state.consequence} </div> : null;
-    let win = this.state.finished && this.state.win ? <div> You Won! </div> : null;
-    let startButton = !this.state.initialized ? <div><button onClick = {this.initializeHandler.bind(this)}> Start Game </button></div> : null;
-    let startImage = !this.state.initialized ? <div><img className="current-character" src={images['victory']}></img><p>UBC Simulator</p></div> : null;
-    let startText = !this.state.initialized ? <div> You're goal is to get through the year with at least a 3.0 GPA and still have friends at the end of it! <br/> </div> : null;
+    var question = this.state.question ? <div> {this.state.question} </div> : null;
+    var choice1 = this.state.choice1 ? <div><button onClick={this.choiceHandler.bind(this)} value={this.state.choice1}>{this.state.choice1}</button></div> : null;
+    var choice2 = this.state.choice2 ? <div><button onClick={this.choiceHandler.bind(this)} value={this.state.choice2}>{this.state.choice2}</button></div> : null;
+    var currentCharacter = this.state.currentCharacter ? <div><img className="current-character" src={this.state.currentCharacter}></img></div> : null;
+    var finished = this.state.finished ? <div><button onClick={this.restart.bind(this)}> Restart</button></div> : null;
+    var consequence = this.state.consequence && this.state.finished && !this.state.win ? <div> {this.state.consequence} </div> : null;
+    var win = this.state.finished && this.state.win ? <div> You Won! </div> : null;
+    var startButton = !this.state.initialized ? <div><button onClick = {this.initializeHandler.bind(this)}> Start Game </button></div> : null;
+    var startImage = !this.state.initialized ? <div><img className="current-character" src={images['victory']}></img><p>UBC Simulator</p></div> : null;
+    var startText = !this.state.initialized ? <div> You're goal is to get through the year with at least a 3.0 GPA and still have friends at the end of it! <br/> </div> : null;
 
     return (
       <div>
