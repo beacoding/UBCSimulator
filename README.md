@@ -8,6 +8,11 @@
 ##Motivation
 Side project to avoid studying for my CPSC 304 midterm.
 
+##Visit
+https://slacknotes.com/ubcsimulator
+
+##Articles
+http://www.ubyssey.ca/blog/ubc-simulator-game-teaches-us-that-university-is-impossible-to-survive/
 
 ##Installation
 1. git clone https://github.com/biancasubion/goWiseChoices.git
